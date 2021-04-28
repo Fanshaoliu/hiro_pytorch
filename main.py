@@ -72,6 +72,7 @@ class Trainer():
             if e%10==0:
                 end_time = time()
                 print("Epoch: ",e , "Reward: ", episode_reward, "Time consuming: ", int(end_time-start_time))
+                start_time = time()
 
             self.logger.write('reward/Reward', episode_reward, e)
             self.evaluate(e)
