@@ -35,7 +35,6 @@ class Trainer():
 
     def train(self):
         global_step = 0
-
         start_time = time()
 
         for e in np.arange(self.args.num_episode)+1:
@@ -71,8 +70,8 @@ class Trainer():
                 
             self.agent.end_episode(e, self.logger)
             if e%10==0:
-                print(e, episode_reward)
                 end_time = time()
+                print("Epoch: ",e , "Reward: ", episode_reward, "Time consuming: ", int(end_time-start_time))
 
             self.logger.write('reward/Reward', episode_reward, e)
             self.evaluate(e)
