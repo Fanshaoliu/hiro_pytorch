@@ -36,8 +36,9 @@ class Trainer():
     def train(self):
         global_step = 0
         start_time = time()
-
+        # self.env.render()
         for e in np.arange(self.args.num_episode)+1:
+            self.env.render()
             obs = self.env.reset()
             fg = obs['desired_goal']
             s = obs['observation']
@@ -109,7 +110,7 @@ if __name__ == '__main__':
     # Across All
     parser.add_argument('--train', action='store_true', default=True)
     parser.add_argument('--eval', action='store_true')
-    parser.add_argument('--render', action='store_true')
+    parser.add_argument('--render', action='store_true', default=True)
     parser.add_argument('--save_video', action='store_true')
     parser.add_argument('--sleep', type=float, default=-1)
     parser.add_argument('--eval_episodes', type=float, default=5, help='Unit = Episode')
