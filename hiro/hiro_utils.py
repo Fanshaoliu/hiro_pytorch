@@ -72,6 +72,32 @@ class LowReplayBuffer(ReplayBuffer):
             torch.FloatTensor(self.not_done[ind]).to(self.device),
         )
 
+    def save(self, path="buffer_dict"):
+        '''
+        import numpy as np
+
+        # Save
+        dict = {'a':1,'b':2,'c':3}
+        np.save('my_file.npy', dict) # 注意带上后缀名
+
+        # Load
+        load_dict = np.load('my_file.npy').item()
+        print(load_dict['a'])
+        '''
+        self.LowReplayBuffer_dict = {"state": self.state, "goal":self.goal, "action":self.action, "n_state":self.n_state, "n_goal":self.n_goal,"reward":self.reward,"not_done":self.not_done}
+        np.save("/LowReplayBuffer_dict.npy", self.LowReplayBuffer_dict)
+
+    def load(self, path="buffer_dict"):
+        self.LowReplayBuffer_dict = np.load(path+"/LowReplayBuffer_dict.npy").item()
+        self.state = self.LowReplayBuffer_dict["state"]
+        self.goal = self.LowReplayBuffer_dict["goal"]
+        self.action = self.LowReplayBuffer_dict["action"]
+        self.n_state = self.LowReplayBuffer_dict["n_state"]
+        self.n_goal = self.LowReplayBuffer_dict["n_goal"]
+        self.reward = self.LowReplayBuffer_dict["reward"]
+        self.not_done = self.LowReplayBuffer_dict["not_done"]
+
+
 class HighReplayBuffer(ReplayBuffer):
     def __init__(self, state_dim, goal_dim, subgoal_dim, action_dim, buffer_size, batch_size, freq):
         super(HighReplayBuffer, self).__init__(state_dim, goal_dim, action_dim, buffer_size, batch_size)
@@ -105,6 +131,32 @@ class HighReplayBuffer(ReplayBuffer):
             torch.FloatTensor(self.state_arr[ind]).to(self.device),
             torch.FloatTensor(self.action_arr[ind]).to(self.device)
         )
+
+    def save(self, path="buffer_dict"):
+        '''
+        import numpy as np
+
+        # Save
+        dict = {'a':1,'b':2,'c':3}
+        np.save('my_file.npy', dict) # 注意带上后缀名
+
+        # Load
+        load_dict = np.load('my_file.npy').item()
+        print(load_dict['a'])
+        '''
+        self.HighReplayBuffer_dict = {"state": self.state, "goal": self.goal, "action": self.action, "n_state": self.n_state,
+                                "n_goal": self.n_goal, "reward": self.reward, "not_done": self.not_done}
+        np.save("/HighReplayBuffer_dict.npy", self.HighReplayBuffer_dict)
+
+    def load(self, path="buffer_dict"):
+        self.HighReplayBuffer_dict = np.load(path + "/HighReplayBuffer_dict.npy").item()
+        self.state = self.HighReplayBuffer_dict["state"]
+        self.goal = self.HighReplayBuffer_dict["goal"]
+        self.action = self.HighReplayBuffer_dict["action"]
+        self.n_state = self.HighReplayBuffer_dict["n_state"]
+        self.n_goal = self.HighReplayBuffer_dict["n_goal"]
+        self.reward = self.HighReplayBuffer_dict["reward"]
+        self.not_done = self.HighReplayBuffer_dict["not_done"]
 
 class SubgoalActionSpace(object):
     def __init__(self, dim):
