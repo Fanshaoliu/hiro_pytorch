@@ -691,7 +691,11 @@ class HiroAgent(Agent):
     def save(self, episode):
         self.low_con.save(episode)
         self.high_con.save(episode)
+        self.replay_buffer_high.save()
+        self.replay_buffer_low.save()
 
     def load(self, episode):
         self.low_con.load(episode)
         self.high_con.load(episode)
+        self.replay_buffer_high.load()
+        self.replay_buffer_low.load()
