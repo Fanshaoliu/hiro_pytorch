@@ -188,8 +188,9 @@ class MazeEnv(gym.Env):
 
     _, file_path = tempfile.mkstemp(text=True, suffix=".xml")
     tree.write(file_path)
-
+    print("file_path", file_path)
     self.wrapped_env = model_cls(*args, file_path=file_path, **kwargs)
+
 
   def _get_obs(self):
     return np.concatenate([self.wrapped_env._get_obs(),
@@ -229,7 +230,8 @@ class MazeEnv(gym.Env):
 
   def step(self, action):
     self.t += 1
-    inner_next_obs, inner_reward, done, info = self.wrapped_env.step(action)
+    inner_next_obs, inner_reward, done, info = self.wrapped_env.step(action)  # 此处执行的应该是ant.py，return sb法验证失败，但是打印出了二者的reward，是一致的
+    # print("envs/maze_env/step reward:, inner_reward: %.2f" % (inner_reward))
     next_obs = self._get_obs()
     done = False
-    return next_obs, inner_reward, done, info
+    return next_obs, inner_reward, done, info, "sb"

@@ -14,7 +14,7 @@ def get_goal_sample_fn(env_name, evaluate):
         if evaluate:
             return lambda: np.array([0., 16.])
         else:
-            return lambda: np.random.uniform((-4, -4), (20, 20))
+            return lambda: np.random.uniform((-4, -4), (20, 20))  # (low, high, size)
     elif env_name == 'AntPush':
         return lambda: np.array([0., 19.])
     elif env_name == 'AntFall':
@@ -67,8 +67,13 @@ class EnvWithGoal(object):
         }
 
     def step(self, a):
-        obs, _, done, info = self.base_env.step(a)
+        obs, _, done, info, sb = self.base_env.step(a)  # 执行的是envs/maze_env.py/step, 用sb return法确定
+        # print(_, sb)
         reward = self.reward_fn(obs, self.goal)
+
+        # print("envs/__init__.py/step reward:, reward: %.2f" % (reward))
+        # print(self.goal)
+
         self.count += 1
         next_obs = {
             # add timestep
@@ -76,6 +81,8 @@ class EnvWithGoal(object):
             'achieved_goal': obs[:2],
             'desired_goal': self.goal,
         }
+
+        # TODO： 按照原文，当agent与goal的最终距离小于5时，done=True
         return next_obs, reward, done or self.count >= 500, info
 
     def render(self):

@@ -579,7 +579,9 @@ class HiroAgent(Agent):
             a = self._choose_action(s, self.sg)
 
         # Take action
-        obs, r, done, _ = env.step(a)
+        obs, r, done, _ = env.step(a) # 此处执行的是__init__.py中的step
+
+        # print("hiro/models/step reward:, r: % .2f" % (r));
         n_s = obs['observation']
 
         ## Higher Level Controller

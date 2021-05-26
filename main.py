@@ -25,6 +25,7 @@ def run_evaluation(args, env, agent):
                 median=np.median(rewards), 
                 success=success_rate))
 
+
 class Trainer():
     def __init__(self, args, env, agent, experiment_name):
         self.args = args
@@ -38,8 +39,9 @@ class Trainer():
         start_time = time()
         # self.env.render()
         for e in np.arange(self.args.num_episode)+1:
-            self.env.render()
+            # self.env.render()
             obs = self.env.reset()
+
             fg = obs['desired_goal']
             s = obs['observation']
             done = False
@@ -70,6 +72,9 @@ class Trainer():
                 self.agent.end_step()
                 
             self.agent.end_episode(e, self.logger)
+
+            # print(step)  # 500
+
             if e%10==0:
                 end_time = time()
                 print("Epoch: ",e , "Reward: ", episode_reward, "Time consuming: ", int(end_time-start_time))
@@ -114,8 +119,9 @@ if __name__ == '__main__':
     parser.add_argument('--save_video', action='store_true')
     parser.add_argument('--sleep', type=float, default=-1)
     parser.add_argument('--eval_episodes', type=float, default=5, help='Unit = Episode')
+    # parser.add_argument('--env', default='AntMaze', type=str)
     parser.add_argument('--env', default='AntMaze', type=str)
-    parser.add_argument('--td3', action='store_true')
+    parser.add_argument('--td3', action='store_true', default=False)
 
     # Training
     parser.add_argument('--num_episode', default=25000, type=int)
@@ -158,6 +164,7 @@ if __name__ == '__main__':
     goal_dim = 2
     state_dim = env.state_dim
     action_dim = env.action_dim
+    print(state_dim, action_dim)
     scale = env.action_space.high * np.ones(action_dim)
 
     # Spawn an agent
