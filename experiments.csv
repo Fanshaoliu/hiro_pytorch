@@ -46,3 +46,4 @@ True,False,True,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,,model,log
 True,False,True,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,100,10,10,0.1,20210523_163701
 True,False,True,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,100,10,10,0.1,20210524_091115
 True,False,True,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,100,10,10,0.1,20210524_091214
+True,False,True,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210526_153624

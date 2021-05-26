@@ -35,6 +35,43 @@ class Trainer():
         self.logger = Logger(log_path=log_path)
 
     def train(self):
+        '''
+        shape of variables
+            agent: point
+                obs: (28,)
+                s  : (28,)
+                a  : (2,)
+                r  : ()
+                fg : (2,)
+
+        Network architecture
+        TODO: 实现TD3中的min(Q1, Q2)  # 20210512 07:59
+
+            self.actor and self.actor_target
+                usage:
+                    a = self.actor(states, goals)
+                    n_actions = self.actor_target(n_states, n_goals)
+
+                input_dim: state_dim + goal_dim (28+2)
+                ouput_dim: action_dim (2)
+                hidden_size: 64, relu
+                output_action_func: tanh
+
+            self.critic1 and self.critic2 and self.critic1_target and self.critic2_target
+                usage:
+                    target_Q1 = self.critic1_target(n_states, n_goals, n_actions)
+                    target_Q2 = self.critic2_target(n_states, n_goals, n_actions)
+                    target_Q = torch.min(target_Q1, target_Q2)
+                    target_Q_detached = (rewards + not_done * self.gamma * target_Q).detach()
+
+                    current_Q1 = self.critic1(states, goals, actions)
+                    current_Q2 = self.critic2(states, goals, actions)
+
+                input_dim: state_dim + goal_dim + action_dim (28+2+2)
+                ouput_dim: reward_dim (2)
+                hidden_size: 64, relu
+                output_action_func: no
+        '''
         global_step = 0
         start_time = time()
         # self.env.render()
@@ -53,12 +90,49 @@ class Trainer():
 
             while not done:
                 # Take action
+                '''
+                para
+                s:            状态, 由env.obs()得到
+                self.env:     实例化的环境类
+                ste:          p单次实验的步数
+                global_step:  总步数
+
+                logic
+                1. low control
+                global_step小于开始训练的步数时，low_action随机采样得到，大于时，通过self._choose_action(s, self.sg)得到
+                self._choose_action就是网络
+
+                执行动作：
+                obs, r, done, info = env.step(a)  # info is about cost
+                n_s = env.obs()
+
+                2. high control
+                同样的有一个探索逻辑，self._choose_subgoal(step, s, self.sg, n_s, n_pos)选择subgoal
+
+                self._choose_subgoal:
+                    if step % self.buffer_freq == 0:
+                        sg = self.high_con.policy(s, self.fg)
+                        其实就是网络了
+                    else:
+                        sg = self.subgoal_transition(s, sg, n_s, n_pos)
+                        其实就是 s[:sg.shape[0]] + sg - n_pos[:sg.shape[0]]
+                '''
                 a, r, n_s, done = self.agent.step(s, self.env, step, global_step, explore=True)
 
                 # Append
+                '''
+                append对于低级与高级buffer的实现与奖励都是不同的
+                1. 低级策略的buffer和普通的dqn一样
+                2. 高级策略的buffer是隔一段时间收集一次
+                '''
                 self.agent.append(step, s, a, n_s, r, done)
 
                 # Train
+                '''
+                global_step大于训练步后
+                1. 低级策略每步都训练
+                2. 高级策略根据一个频率训练
+                '''
                 losses, td_errors = self.agent.train(global_step)
 
                 # Log
@@ -69,6 +143,12 @@ class Trainer():
                 episode_reward += r
                 step += 1
                 global_step += 1
+
+                '''
+                end_step主要是调整奖励与sub_goal
+                self.episode_subreward += self.sr  # self.sr = self.low_reward(s, self.sg, n_s)
+                self.sg = self.n_sg                # self.n_sg = self._choose_subgoal(step, s, self.sg, n_s, n_pos)
+                '''
                 self.agent.end_step()
                 
             self.agent.end_episode(e, self.logger)
@@ -140,7 +220,7 @@ if __name__ == '__main__':
     parser.add_argument('--policy_freq_high', default=2, type=int)
     # Replay Buffer
     parser.add_argument('--buffer_size', default=200000, type=int)
-    parser.add_argument('--batch_size', default=100, type=int)
+    parser.add_argument('--batch_size', default=256, type=int)
     parser.add_argument('--buffer_freq', default=10, type=int)
     parser.add_argument('--train_freq', default=10, type=int)
     parser.add_argument('--reward_scaling', default=0.1, type=float)
