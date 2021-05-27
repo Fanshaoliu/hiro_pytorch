@@ -145,7 +145,7 @@ class HighReplayBuffer(ReplayBuffer):
         print(load_dict['a'])
         '''
         self.HighReplayBuffer_dict = {"state": self.state, "goal": self.goal, "action": self.action, "n_state": self.n_state,
-                                "n_goal": self.n_goal, "reward": self.reward, "not_done": self.not_done}
+                                      "reward": self.reward, "not_done": self.not_done}
         np.save("/HighReplayBuffer_dict.npy", self.HighReplayBuffer_dict)
 
     def load(self, path="buffer_dict"):
@@ -154,7 +154,6 @@ class HighReplayBuffer(ReplayBuffer):
         self.goal = self.HighReplayBuffer_dict["goal"]
         self.action = self.HighReplayBuffer_dict["action"]
         self.n_state = self.HighReplayBuffer_dict["n_state"]
-        self.n_goal = self.HighReplayBuffer_dict["n_goal"]
         self.reward = self.HighReplayBuffer_dict["reward"]
         self.not_done = self.HighReplayBuffer_dict["not_done"]
 
