@@ -193,7 +193,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     # Across All
-    parser.add_argument('--train', action='store_true', default=True)
+    parser.add_argument('--train', action='store_true')
     parser.add_argument('--eval', action='store_true')
     parser.add_argument('--render', action='store_true', default=True)
     parser.add_argument('--save_video', action='store_true')
@@ -287,4 +287,5 @@ if __name__ == '__main__':
         trainer = Trainer(args, env, agent, experiment_name)
         trainer.train()
     if args.eval:
+        agent.load(24000)
         run_evaluation(args, env, agent)
