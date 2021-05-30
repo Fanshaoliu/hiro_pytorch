@@ -16,16 +16,18 @@ class ReplayBuffer():
         self.n_state = np.zeros((buffer_size, state_dim))
         self.reward = np.zeros((buffer_size, 1))
         self.not_done = np.zeros((buffer_size, 1))
+        self.cost = np.zeros((buffer_size, 1))
 
         self.device = device
 
-    def append(self, state, goal, action, n_state, reward, done):
+    def append(self, state, goal, action, n_state, reward, done, cost):
         self.state[self.ptr] = state
         self.goal[self.ptr] = goal
         self.action[self.ptr] = action
         self.n_state[self.ptr] = n_state
         self.reward[self.ptr] = reward
         self.not_done[self.ptr] = 1. - done
+        self.cost[self.ptr] = cost
 
         self.ptr = (self.ptr+1) % self.buffer_size
         self.size = min(self.size+1, self.buffer_size)
@@ -40,6 +42,7 @@ class ReplayBuffer():
             torch.FloatTensor(self.n_state[ind]).to(self.device),
             torch.FloatTensor(self.reward[ind]).to(self.device),
             torch.FloatTensor(self.not_done[ind]).to(self.device),
+            torch.FloatTensor(self.cost[ind]).to(self.device),
         )
 
 class LowReplayBuffer(ReplayBuffer):
@@ -105,7 +108,7 @@ class HighReplayBuffer(ReplayBuffer):
         self.state_arr = np.zeros((buffer_size, freq, state_dim))
         self.action_arr = np.zeros((buffer_size, freq, action_dim))
 
-    def append(self, state, goal, action, n_state, reward, done, state_arr, action_arr):
+    def append(self, state, goal, action, n_state, reward, done, state_arr, action_arr, cost):
         self.state[self.ptr] = state
         self.goal[self.ptr] = goal
         self.action[self.ptr] = action
@@ -114,6 +117,7 @@ class HighReplayBuffer(ReplayBuffer):
         self.not_done[self.ptr] = 1. - done
         self.state_arr[self.ptr,:,:] = state_arr
         self.action_arr[self.ptr,:,:] = action_arr
+        self.cost[self.ptr] = cost
 
         self.ptr = (self.ptr+1) % self.buffer_size
         self.size = min(self.size+1, self.buffer_size)
@@ -129,7 +133,8 @@ class HighReplayBuffer(ReplayBuffer):
             torch.FloatTensor(self.reward[ind]).to(self.device),
             torch.FloatTensor(self.not_done[ind]).to(self.device),
             torch.FloatTensor(self.state_arr[ind]).to(self.device),
-            torch.FloatTensor(self.action_arr[ind]).to(self.device)
+            torch.FloatTensor(self.action_arr[ind]).to(self.device),
+            torch.FloatTensor(self.cost[ind]).to(self.device),
         )
 
     def save(self, path="buffer_dict"):

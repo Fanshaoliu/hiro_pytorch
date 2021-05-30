@@ -58,3 +58,14 @@ True,False,True,False,-1,5,AntPush,False,25000,2500,25,15,-1,2000,250,,model,log
 True,False,True,False,-1,5,AntPush,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210530_153603
 True,False,True,False,-1,5,AntPush,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210530_160030
 True,False,True,False,-1,5,AntPush,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210530_160122
+True,False,True,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210530_162935
+True,False,True,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210530_163012
+True,False,True,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210530_163240
+True,False,True,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210530_163259
+True,False,True,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210530_170450
+True,False,True,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210530_170511
+True,False,True,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210530_170548
+True,False,True,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210530_170649
+True,False,True,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210530_170707
+True,False,True,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210530_170904
+True,False,True,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210530_170955

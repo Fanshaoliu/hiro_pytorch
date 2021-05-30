@@ -118,7 +118,7 @@ class Trainer():
                         其实就是 s[:sg.shape[0]] + sg - n_pos[:sg.shape[0]]
                 '''
                 a, r, n_s, done, c = self.agent.step(s, self.env, step, global_step, explore=True)
-                print(c)
+                # print(c)
 
                 # Append
                 '''
@@ -126,7 +126,7 @@ class Trainer():
                 1. 低级策略的buffer和普通的dqn一样
                 2. 高级策略的buffer是隔一段时间收集一次
                 '''
-                self.agent.append(step, s, a, n_s, r, done)
+                self.agent.append(step, s, a, n_s, r, done, c)
 
                 # Train
                 '''
@@ -194,8 +194,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     # Across All
-    parser.add_argument('--train', action='store_true')
-    parser.add_argument('--eval', action='store_true', default=True)
+    parser.add_argument('--train', action='store_true', default=True)
+    parser.add_argument('--eval', action='store_true')
     parser.add_argument('--render', action='store_true', default=True)
     parser.add_argument('--save_video', action='store_true')
     parser.add_argument('--sleep', type=float, default=-1)

@@ -99,6 +99,14 @@ class TD3Controller(object):
 
         self.critic1_optimizer = torch.optim.Adam(self.critic1.parameters(), lr=critic_lr)
         self.critic2_optimizer = torch.optim.Adam(self.critic2.parameters(), lr=critic_lr)
+
+        self.ccritic1 = TD3Critic(state_dim, goal_dim, action_dim).to(device)
+        self.ccritic2 = TD3Critic(state_dim, goal_dim, action_dim).to(device)
+        self.ccritic1_target = TD3Critic(state_dim, goal_dim, action_dim).to(device)
+        self.ccritic2_target = TD3Critic(state_dim, goal_dim, action_dim).to(device)
+
+        self.ccritic1_optimizer = torch.optim.Adam(self.ccritic1.parameters(), lr=critic_lr)
+        self.ccritic2_optimizer = torch.optim.Adam(self.ccritic2.parameters(), lr=critic_lr)
         self._initialize_target_networks()
 
         self._initialized = False
@@ -164,7 +172,7 @@ class TD3Controller(object):
                 os.path.join(model_path, self.name+"_critic2.h5"))
             )
 
-    def _train(self, states, goals, actions, rewards, n_states, n_goals, not_done):
+    def _train(self, states, goals, actions, rewards, n_states, n_goals, not_done, cost=None):
         self.total_it += 1
         with torch.no_grad():
             noise = (
@@ -180,8 +188,16 @@ class TD3Controller(object):
             target_Q = torch.min(target_Q1, target_Q2)
             target_Q_detached = (rewards + not_done * self.gamma * target_Q).detach()
 
+            # cost function
+            if cost!=None:
+                target_C1 = self.ccritic1_target(n_states, n_goals, n_actions)
+                target_C2 = self.ccritic2_target(n_states, n_goals, n_actions)
+                target_C = torch.min(target_C1, target_C2)
+                target_C_detached = (cost + not_done * self.gamma * target_C).detach()
+
         current_Q1 = self.critic1(states, goals, actions)
         current_Q2 = self.critic2(states, goals, actions)
+
 
         critic1_loss = F.smooth_l1_loss(current_Q1, target_Q_detached)
         critic2_loss = F.smooth_l1_loss(current_Q2, target_Q_detached)
@@ -195,6 +211,23 @@ class TD3Controller(object):
         self.critic1_optimizer.step()
         self.critic2_optimizer.step()
 
+        # cost function
+        if cost!=None:
+            current_C1 = self.ccritic1(states, goals, actions)
+            current_C2 = self.ccritic2(states, goals, actions)
+
+            ccritic1_loss = F.smooth_l1_loss(current_C1, target_C_detached)
+            ccritic2_loss = F.smooth_l1_loss(current_C2, target_C_detached)
+            ccritic_loss = ccritic1_loss + ccritic2_loss
+
+            ctd_error = (target_C_detached - current_C1).mean().cpu().data.numpy()
+
+            self.ccritic1_optimizer.zero_grad()
+            self.ccritic2_optimizer.zero_grad()
+            ccritic_loss.backward()
+            self.ccritic1_optimizer.step()
+            self.ccritic2_optimizer.step()
+
         if self.total_it % self.policy_freq == 0:
             a = self.actor(states, goals)
             Q1 = self.critic1(states, goals, a)
@@ -206,6 +239,12 @@ class TD3Controller(object):
 
             self._update_target_network(self.critic1_target, self.critic1, self.tau)
             self._update_target_network(self.critic2_target, self.critic2, self.tau)
+
+            # for cost
+            if cost!=None:
+                self._update_target_network(self.ccritic1_target, self.ccritic1, self.tau)
+                self._update_target_network(self.ccritic2_target, self.ccritic2, self.tau)
+
             self._update_target_network(self.actor_target, self.actor, self.tau)
 
             return {'actor_loss_'+self.name: actor_loss, 'critic_loss_'+self.name: critic_loss}, \
@@ -330,7 +369,7 @@ class HigherController(TD3Controller):
         if not self._initialized:
             self._initialize_target_networks()
 
-        states, goals, actions, n_states, rewards, not_done, states_arr, actions_arr = replay_buffer.sample()
+        states, goals, actions, n_states, rewards, not_done, states_arr, actions_arr, cost = replay_buffer.sample()
 
         actions = self.off_policy_corrections(
             low_con,
@@ -340,7 +379,7 @@ class HigherController(TD3Controller):
             actions_arr.cpu().data.numpy())
 
         actions = get_tensor(actions)
-        return self._train(states, goals, actions, rewards, n_states, goals, not_done)
+        return self._train(states, goals, actions, rewards, n_states, goals, not_done, cost)
 
 class LowerController(TD3Controller):
     def __init__(
@@ -383,7 +422,7 @@ class Agent():
     def step(self, s, env, step, global_step=0, explore=False):
         raise NotImplementedError
 
-    def append(self, step, s, a, n_s, r, d):
+    def append(self, step, s, a, n_s, r, d, c):
         raise NotImplementedError
 
     def train(self, global_step):
@@ -422,7 +461,7 @@ class Agent():
                     time.sleep(sleep)
 
                 a, r, n_s, done, c = self.step(s, env, step)
-                print(c)
+                # print(c)
                 reward_episode_sum += r
                 
                 s = n_s
@@ -483,8 +522,8 @@ class TD3Agent(Agent):
 
         return a, r, n_s, done
 
-    def append(self, step, s, a, n_s, r, d):
-        self.replay_buffer.append(s, self.fg, a, n_s, r, d)
+    def append(self, step, s, a, n_s, r, d, c):
+        self.replay_buffer.append(s, self.fg, a, n_s, r, d, c)
 
     def train(self, global_step):
         return self.con.train(self.replay_buffer)
@@ -575,7 +614,7 @@ class HiroAgent(Agent):
         self.episode_subreward = 0
         self.sr = 0
 
-        self.buf = [None, None, None, 0, None, None, [], []]
+        self.buf = [None, None, None, 0, None, None, [], [], 0]
         self.fg = np.array([0,0])
         self.sg = self.subgoal.action_space.sample()
 
@@ -612,7 +651,7 @@ class HiroAgent(Agent):
 
         return a, r, n_s, done, c
 
-    def append(self, step, s, a, n_s, r, d):
+    def append(self, step, s, a, n_s, r, d, c):
         self.sr = self.low_reward(s, self.sg, n_s)
 
         # Low Replay Buffer
@@ -632,13 +671,15 @@ class HiroAgent(Agent):
                     reward=self.buf[3],
                     done=self.buf[5],
                     state_arr=np.array(self.buf[6]),
-                    action_arr=np.array(self.buf[7])
+                    action_arr=np.array(self.buf[7]),
+                    cost=self.buf[8]
                 )
-            self.buf = [s, self.fg, self.sg, 0, None, None, [], []]
+            self.buf = [s, self.fg, self.sg, 0., None, None, [], [], 0.]
 
         self.buf[3] += self.reward_scaling * r
         self.buf[6].append(s)
         self.buf[7].append(a)
+        self.buf[8] += c
 
     def train(self, global_step):
         losses = {}
@@ -700,7 +741,7 @@ class HiroAgent(Agent):
 
         self.episode_subreward = 0
         self.sr = 0
-        self.buf = [None, None, None, 0, None, None, [], []]
+        self.buf = [None, None, None, 0, None, None, [], [], 0]
 
     def save(self, episode):
         self.low_con.save(episode)
