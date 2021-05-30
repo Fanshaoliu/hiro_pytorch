@@ -19,6 +19,7 @@ from hiro.hiro_utils import LowReplayBuffer, HighReplayBuffer, ReplayBuffer, Sub
 from hiro.utils import _is_update
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# device = torch.device("cpu")
 
 class TD3Actor(nn.Module):
     def __init__(self, state_dim, goal_dim, action_dim, scale=None):
@@ -139,17 +140,29 @@ class TD3Controller(object):
             episode_list = map(int, os.listdir(self.model_path))
             episode = max(episode_list)
 
-        model_path = os.path.join(self.model_path, str(episode)) 
+        model_path = os.path.join(self.model_path, str(episode))
+        print(self.model_path)
 
-        self.actor.load_state_dict(torch.load(
-            os.path.join(model_path, self.name+"_actor.h5"))
-        )
-        self.critic1.load_state_dict(torch.load(
-            os.path.join(model_path, self.name+"_critic1.h5"))
-        )
-        self.critic2.load_state_dict(torch.load(
-            os.path.join(model_path, self.name+"_critic2.h5"))
-        )
+        if not torch.cuda.is_available():
+            self.actor.load_state_dict(torch.load(
+                os.path.join(model_path, self.name+"_actor.h5"), map_location=torch.device('cpu'))
+            )
+            self.critic1.load_state_dict(torch.load(
+                os.path.join(model_path, self.name+"_critic1.h5"), map_location=torch.device('cpu'))
+            )
+            self.critic2.load_state_dict(torch.load(
+                os.path.join(model_path, self.name+"_critic2.h5"), map_location=torch.device('cpu'))
+            )
+        else:
+            self.actor.load_state_dict(torch.load(
+                os.path.join(model_path, self.name+"_actor.h5"))
+            )
+            self.critic1.load_state_dict(torch.load(
+                os.path.join(model_path, self.name+"_critic1.h5"))
+            )
+            self.critic2.load_state_dict(torch.load(
+                os.path.join(model_path, self.name+"_critic2.h5"))
+            )
 
     def _train(self, states, goals, actions, rewards, n_states, n_goals, not_done):
         self.total_it += 1

@@ -194,7 +194,7 @@ if __name__ == '__main__':
 
     # Across All
     parser.add_argument('--train', action='store_true')
-    parser.add_argument('--eval', action='store_true')
+    parser.add_argument('--eval', action='store_true', default=True)
     parser.add_argument('--render', action='store_true', default=True)
     parser.add_argument('--save_video', action='store_true')
     parser.add_argument('--sleep', type=float, default=-1)
@@ -232,9 +232,10 @@ if __name__ == '__main__':
     else:
         if args.eval:
             # choose most updated experiment for evaluation
-            dirs_str = listdirs(args.model_path)
-            dirs = np.array(list(map(int, dirs_str)))
-            experiment_name = dirs_str[np.argmax(dirs)]
+            # dirs_str = listdirs(args.model_path)
+            # dirs = np.array(list(map(int, dirs_str)))
+            # experiment_name = dirs_str[np.argmax(dirs)]
+            experiment_name = "antmaze_256"
         else:
             experiment_name = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
     print(experiment_name)
