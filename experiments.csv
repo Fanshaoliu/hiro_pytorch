@@ -52,3 +52,9 @@ True,False,True,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,,model,log
 True,False,True,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210527_115534
 True,False,True,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210527_115847
 True,False,True,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210527_215544
+True,False,True,False,-1,5,AntFall,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210530_152820
+True,False,True,False,-1,5,AntPush,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210530_152839
+True,False,True,False,-1,5,AntPush,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210530_152923
+True,False,True,False,-1,5,AntPush,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210530_153603
+True,False,True,False,-1,5,AntPush,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210530_160030
+True,False,True,False,-1,5,AntPush,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,256,10,10,0.1,20210530_160122

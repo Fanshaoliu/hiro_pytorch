@@ -74,9 +74,9 @@ class Trainer():
         '''
         global_step = 0
         start_time = time()
-        # self.env.render()
+        self.env.render()
         for e in np.arange(self.args.num_episode)+1:
-            # self.env.render()
+            self.env.render()
             obs = self.env.reset()
 
             fg = obs['desired_goal']
@@ -117,7 +117,8 @@ class Trainer():
                         sg = self.subgoal_transition(s, sg, n_s, n_pos)
                         其实就是 s[:sg.shape[0]] + sg - n_pos[:sg.shape[0]]
                 '''
-                a, r, n_s, done = self.agent.step(s, self.env, step, global_step, explore=True)
+                a, r, n_s, done, c = self.agent.step(s, self.env, step, global_step, explore=True)
+                print(c)
 
                 # Append
                 '''
@@ -199,8 +200,8 @@ if __name__ == '__main__':
     parser.add_argument('--save_video', action='store_true')
     parser.add_argument('--sleep', type=float, default=-1)
     parser.add_argument('--eval_episodes', type=float, default=5, help='Unit = Episode')
-    # parser.add_argument('--env', default='AntMaze', type=str)
     parser.add_argument('--env', default='AntMaze', type=str)
+    # parser.add_argument('--env', default='AntPush', type=str)
     parser.add_argument('--td3', action='store_true', default=False)
 
     # Training

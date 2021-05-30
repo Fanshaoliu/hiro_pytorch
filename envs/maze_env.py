@@ -125,6 +125,7 @@ class MazeEnv(gym.Env):
                                 height_offset +
                                 height / 2 * size_scaling),
           )
+          # geom就是push环境中的可移动块，可以根据颜色来验证这一点
           ET.SubElement(
               moveable_body, "geom",
               name="block_%d_%d" % (i, j),
