@@ -231,7 +231,10 @@ class TD3Controller(object):
         if self.total_it % self.policy_freq == 0:
             a = self.actor(states, goals)
             Q1 = self.critic1(states, goals, a)
-            actor_loss = -Q1.mean() # multiply by neg becuz gradient ascent
+
+            C1 = self.ccritic1(states, goals, a)
+
+            actor_loss = -Q1.mean() + C1.mean() # multiply by neg becuz gradient ascent
 
             self.actor_optimizer.zero_grad()
             actor_loss.backward()
