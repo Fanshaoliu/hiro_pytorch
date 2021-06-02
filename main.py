@@ -74,9 +74,9 @@ class Trainer():
         '''
         global_step = 0
         start_time = time()
-        self.env.render()
+        # self.env.render()
         for e in np.arange(self.args.num_episode)+1:
-            self.env.render()
+            # self.env.render()
             obs = self.env.reset()
 
             fg = obs['desired_goal']
@@ -221,7 +221,7 @@ if __name__ == '__main__':
     parser.add_argument('--policy_freq_high', default=2, type=int)
     # Replay Buffer
     parser.add_argument('--buffer_size', default=200000, type=int)
-    parser.add_argument('--batch_size', default=256, type=int)
+    parser.add_argument('--batch_size', default=128, type=int)
     parser.add_argument('--buffer_freq', default=10, type=int)
     parser.add_argument('--train_freq', default=10, type=int)
     parser.add_argument('--reward_scaling', default=0.1, type=float)
