@@ -85,6 +85,7 @@ class Trainer():
 
             step = 0
             episode_reward = 0
+            episode_cost = 0
 
             self.agent.set_final_goal(fg)
 
@@ -143,6 +144,7 @@ class Trainer():
                 # Updates
                 s = n_s
                 episode_reward += r
+                episode_cost += c
                 step += 1
                 global_step += 1
 
@@ -159,7 +161,7 @@ class Trainer():
 
             if e%10==0:
                 end_time = time()
-                print("Epoch: ",e , "Reward: ", episode_reward, "Time consuming: ", int(end_time-start_time))
+                print("Epoch: ",e , "Reward: ", episode_reward, "Cost: ", episode_cost, "Time consuming: ", int(end_time-start_time))
                 start_time = time()
 
             self.logger.write('reward/Reward', episode_reward, e)
@@ -188,7 +190,7 @@ class Trainer():
                     episode=e, 
                     mean=np.mean(rewards), 
                     std=np.std(rewards), 
-                    median=np.median(rewards), 
+                    median=np.median(rewards),
                     success=success_rate))
 
 if __name__ == '__main__':
