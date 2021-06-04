@@ -190,9 +190,9 @@ class TD3Controller(object):
 
             # cost function
             if cost!=None:
-                target_C1 = self.ccritic1_target(n_states, n_goals, n_actions)
-                target_C2 = self.ccritic2_target(n_states, n_goals, n_actions)
-                target_C = torch.min(target_C1, target_C2)
+                target_C = self.ccritic1_target(n_states, n_goals, n_actions)
+                # target_C2 = self.ccritic2_target(n_states, n_goals, n_actions)
+                # target_C = torch.min(target_C1, target_C2)
                 target_C_detached = (cost + not_done * self.gamma * target_C).detach()
 
         current_Q1 = self.critic1(states, goals, actions)
