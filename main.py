@@ -161,7 +161,8 @@ class Trainer():
 
             if e%10==0:
                 end_time = time()
-                print("Epoch: ",e , "Reward: ", episode_reward, "Cost: ", episode_cost, "Time consuming: ", int(end_time-start_time))
+                # print("Epoch: ",e , "Reward: ", episode_reward, "Cost: ", episode_cost, "Time consuming: ", int(end_time-start_time))
+                print("Epoch: %d"%(e), "Reward: %.3f"%(episode_reward), "Cost: %.3f"%(episode_cost), "Time consuming: %d"%(int(end_time - start_time)))
                 start_time = time()
 
             self.logger.write('reward/Reward', episode_reward, e)
