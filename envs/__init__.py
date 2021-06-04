@@ -25,7 +25,7 @@ def get_goal_sample_fn(env_name, evaluate):
 def get_cost_fn(env_name):
     if env_name == 'AntMaze':
         # return lambda obs, goal: -np.sum(np.square(obs[:2] - goal)) ** 0.5
-        return lambda obs, goal: 1 if (obs[0]-12)**2 + (obs[1]-8)**2 < 16 else 0.
+        return lambda obs, goal: 0. if (obs[0]-12)**2 + (obs[1]-8)**2 < 16 else -1 + np.random.randn()/5.
     # elif env_name == 'AntPush':
     #     return lambda obs, goal: -np.sum(np.square(obs[:2] - goal)) ** 0.5
     # elif env_name == 'AntFall':

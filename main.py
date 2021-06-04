@@ -118,7 +118,8 @@ class Trainer():
                         其实就是 s[:sg.shape[0]] + sg - n_pos[:sg.shape[0]]
                 '''
                 a, r, n_s, done, c = self.agent.step(s, self.env, step, global_step, explore=True)
-                # print(c)
+                r/=10.
+                # print(c, r)
 
                 # Append
                 '''
