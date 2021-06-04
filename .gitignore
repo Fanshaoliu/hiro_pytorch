@@ -1,7 +1,0 @@
-
-*.pyc
-.vscode
-__pycach__/
-test/*
-
-/log
