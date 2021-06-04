@@ -1,5 +1,4 @@
-# codeing: utf-8
-import os
+import os 
 import argparse
 import numpy as np
 import datetime
@@ -118,7 +117,8 @@ class Trainer():
                         sg = self.subgoal_transition(s, sg, n_s, n_pos)
                         其实就是 s[:sg.shape[0]] + sg - n_pos[:sg.shape[0]]
                 '''
-                a, r, n_s, done = self.agent.step(s, self.env, step, global_step, explore=True)
+                a, r, n_s, done, c = self.agent.step(s, self.env, step, global_step, explore=True)
+                # print(c)
 
                 # Append
                 '''
@@ -126,7 +126,7 @@ class Trainer():
                 1. 低级策略的buffer和普通的dqn一样
                 2. 高级策略的buffer是隔一段时间收集一次
                 '''
-                self.agent.append(step, s, a, n_s, r, done)
+                self.agent.append(step, s, a, n_s, r, done, c)
 
                 # Train
                 '''
@@ -194,14 +194,14 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     # Across All
-    parser.add_argument('--train', action='store_true')
-    parser.add_argument('--eval', action='store_true', default=True)
+    parser.add_argument('--train', action='store_true', default=True)
+    parser.add_argument('--eval', action='store_true')
     parser.add_argument('--render', action='store_true', default=True)
     parser.add_argument('--save_video', action='store_true')
     parser.add_argument('--sleep', type=float, default=-1)
     parser.add_argument('--eval_episodes', type=float, default=5, help='Unit = Episode')
-    # parser.add_argument('--env', default='AntMaze', type=str)
     parser.add_argument('--env', default='AntMaze', type=str)
+    # parser.add_argument('--env', default='AntPush', type=str)
     parser.add_argument('--td3', action='store_true', default=False)
 
     # Training
@@ -221,7 +221,7 @@ if __name__ == '__main__':
     parser.add_argument('--policy_freq_high', default=2, type=int)
     # Replay Buffer
     parser.add_argument('--buffer_size', default=200000, type=int)
-    parser.add_argument('--batch_size', default=256, type=int)
+    parser.add_argument('--batch_size', default=128, type=int)
     parser.add_argument('--buffer_freq', default=10, type=int)
     parser.add_argument('--train_freq', default=10, type=int)
     parser.add_argument('--reward_scaling', default=0.1, type=float)
@@ -233,9 +233,10 @@ if __name__ == '__main__':
     else:
         if args.eval:
             # choose most updated experiment for evaluation
-            dirs_str = listdirs(args.model_path)
-            dirs = np.array(list(map(int, dirs_str)))
-            experiment_name = dirs_str[np.argmax(dirs)]
+            # dirs_str = listdirs(args.model_path)
+            # dirs = np.array(list(map(int, dirs_str)))
+            # experiment_name = dirs_str[np.argmax(dirs)]
+            experiment_name = "antmaze_256"
         else:
             experiment_name = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
     print(experiment_name)

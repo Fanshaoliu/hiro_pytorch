@@ -22,6 +22,17 @@ def get_goal_sample_fn(env_name, evaluate):
     else:
         assert False, 'Unknown env'
 
+def get_cost_fn(env_name):
+    if env_name == 'AntMaze':
+        # return lambda obs, goal: -np.sum(np.square(obs[:2] - goal)) ** 0.5
+        return lambda obs, goal: 1 if (obs[0]-12)**2 + (obs[1]-8)**2 < 16 else 0.
+    # elif env_name == 'AntPush':
+    #     return lambda obs, goal: -np.sum(np.square(obs[:2] - goal)) ** 0.5
+    # elif env_name == 'AntFall':
+    #     return lambda obs, goal: -np.sum(np.square(obs[:3] - goal)) ** 0.5
+    else:
+        assert False, 'Unknown env'
+
 
 def get_reward_fn(env_name):
     if env_name == 'AntMaze':
@@ -44,6 +55,7 @@ class EnvWithGoal(object):
         self.env_name = env_name
         self.evaluate = False
         self.reward_fn = get_reward_fn(env_name)
+        self.cost_fn = get_cost_fn(env_name)
         self.goal = None
         self.distance_threshold = 5
         self.count = 0
@@ -68,8 +80,9 @@ class EnvWithGoal(object):
 
     def step(self, a):
         obs, _, done, info, sb = self.base_env.step(a)  # 执行的是envs/maze_env.py/step, 用sb return法确定
-        # print(_, sb)
+        # print(obs[:2])
         reward = self.reward_fn(obs, self.goal)
+        cost = self.cost_fn(obs, self.goal)
 
         # print("envs/__init__.py/step reward:, reward: %.2f" % (reward))
         # print(self.goal)
@@ -83,7 +96,7 @@ class EnvWithGoal(object):
         }
 
         # TODO： 按照原文，当agent与goal的最终距离小于5时，done=True
-        return next_obs, reward, done or self.count >= 500, info
+        return next_obs, reward, done or self.count >= 500, info, cost
 
     def render(self):
         self.base_env.render()
