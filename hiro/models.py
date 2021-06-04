@@ -130,16 +130,20 @@ class TD3Controller(object):
 
         # save file (e.g. model/2000/high_actor.h)
         torch.save(
-            self.actor.state_dict(), 
+            self.actor.state_dict(),
             os.path.join(model_path, self.name+"_actor.h5")
         )
         torch.save(
-            self.critic1.state_dict(), 
+            self.critic1.state_dict(),
             os.path.join(model_path, self.name+"_critic1.h5")
         )
         torch.save(
-            self.critic2.state_dict(), 
+            self.critic2.state_dict(),
             os.path.join(model_path, self.name+"_critic2.h5")
+        )
+        torch.save(
+            self.ccritic1.state_dict(),
+            os.path.join(model_path, self.name+"_ccritic1.h5")
         )
 
     def load(self, episode):
@@ -161,6 +165,9 @@ class TD3Controller(object):
             self.critic2.load_state_dict(torch.load(
                 os.path.join(model_path, self.name+"_critic2.h5"), map_location=torch.device('cpu'))
             )
+            self.ccritic1.load_state_dict(torch.load(
+                os.path.join(model_path, self.name+"_ccritic1.h5"), map_location=torch.device('cpu'))
+            )
         else:
             self.actor.load_state_dict(torch.load(
                 os.path.join(model_path, self.name+"_actor.h5"))
@@ -170,6 +177,9 @@ class TD3Controller(object):
             )
             self.critic2.load_state_dict(torch.load(
                 os.path.join(model_path, self.name+"_critic2.h5"))
+            )
+            self.ccritic1.load_state_dict(torch.load(
+                os.path.join(model_path, self.name+"_ccritic1.h5"))
             )
 
     def _train(self, states, goals, actions, rewards, n_states, n_goals, not_done, cost=None):
@@ -437,7 +447,7 @@ class Agent():
 
     def end_episode(self, episode, logger=None):
         raise NotImplementedError
-    
+
     def evaluate_policy(self, env, eval_episodes=10, render=False, save_video=False, sleep=-1):
         if save_video:
             from OpenGL import GL
@@ -455,7 +465,7 @@ class Agent():
             done = False
             reward_episode_sum = 0
             step = 0
-            
+
             self.set_final_goal(fg)
 
             while not done:
@@ -467,7 +477,7 @@ class Agent():
                 a, r, n_s, done, c = self.step(s, env, step)
                 # print(c)
                 reward_episode_sum += r
-                
+
                 s = n_s
                 step += 1
                 self.end_step()
@@ -520,7 +530,7 @@ class TD3Agent(Agent):
                 a = self._choose_action_with_noise(s)
         else:
             a = self._choose_action(s)
-        
+
         obs, r, done, _ = env.step(a)
         n_s = obs['observation']
 
@@ -650,7 +660,7 @@ class HiroAgent(Agent):
                 n_sg = self._choose_subgoal_with_noise(step, s, self.sg, n_s)
         else:
             n_sg = self._choose_subgoal(step, s, self.sg, n_s)
-        
+
         self.n_sg = n_sg
 
         return a, r, n_s, done, c
@@ -735,7 +745,7 @@ class HiroAgent(Agent):
         self.sg = self.n_sg
 
     def end_episode(self, episode, logger=None):
-        if logger: 
+        if logger:
             # log
             logger.write('reward/Intrinsic Reward', self.episode_subreward, episode)
 
