@@ -223,13 +223,13 @@ if __name__ == '__main__':
     # Model
     parser.add_argument('--model_path', default='model', type=str)
     parser.add_argument('--log_path', default='log', type=str)
-    parser.add_argument('--policy_freq_low', default=2, type=int)
-    parser.add_argument('--policy_freq_high', default=2, type=int)
+    parser.add_argument('--policy_freq_low', default=2, type=int)  # 低级策略 target 网络更新频率
+    parser.add_argument('--policy_freq_high', default=2, type=int)  # 高级策略 target 网络更新频率
     # Replay Buffer
     parser.add_argument('--buffer_size', default=200000, type=int)
     parser.add_argument('--batch_size', default=128, type=int)
     parser.add_argument('--buffer_freq', default=10, type=int)
-    parser.add_argument('--train_freq', default=10, type=int)
+    parser.add_argument('--train_freq', default=10, type=int)  # 高级策略更新频率
     parser.add_argument('--reward_scaling', default=0.1, type=float)
     args = parser.parse_args()
 

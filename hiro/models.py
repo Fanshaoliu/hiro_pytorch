@@ -179,7 +179,7 @@ class TD3Controller(object):
                 os.path.join(model_path, self.name+"_critic2.h5"))
             )
             self.ccritic1.load_state_dict(torch.load(
-                os.path.join(model_path, self.name+"_ccritic1.h5"), map_location=torch.device('cpu'))
+                os.path.join(model_path, self.name+"_ccritic1.h5"))
             )
 
     def _train(self, states, goals, actions, rewards, n_states, n_goals, not_done, cost=None):
@@ -701,11 +701,13 @@ class HiroAgent(Agent):
 
         if global_step >= self.start_training_steps:
             loss, td_error = self.low_con.train(self.replay_buffer_low)
+            # 字典update，只是更新键值对而已
             losses.update(loss)
             td_errors.update(td_error)
 
             if global_step % self.train_freq == 0:
                 loss, td_error = self.high_con.train(self.replay_buffer_high, self.low_con)
+                # 字典update，只是更新键值对而已
                 losses.update(loss)
                 td_errors.update(td_error)
 
