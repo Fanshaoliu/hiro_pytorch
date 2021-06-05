@@ -1,9 +1,5 @@
-
 /log
 *.pyc
 .vscode
 __pycach__/
-*.pyc
-
-/log
-
+*.DS_Store

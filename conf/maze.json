@@ -1,0 +1,4 @@
+{
+    "train": "True",
+    "env": "AntMaze"
+}

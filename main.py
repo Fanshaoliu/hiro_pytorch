@@ -3,12 +3,13 @@ import argparse
 import numpy as np
 import datetime
 import copy
+import yaml
 from envs import EnvWithGoal
 from envs.create_maze_env import create_maze_env
 from hiro.hiro_utils import Subgoal 
 from hiro.utils import Logger, _is_update, record_experience_to_csv, listdirs
 from hiro.models import HiroAgent, TD3Agent
-
+import json
 from time import time
 
 def run_evaluation(args, env, agent):
@@ -121,6 +122,7 @@ class Trainer():
                 a, r, n_s, done, c = self.agent.step(s, self.env, step, global_step, explore=True)
                 r/=10.
                 # print(c, r)
+                # print(self.env._find_moveable_block())
 
                 # Append
                 '''
@@ -204,8 +206,9 @@ if __name__ == '__main__':
     parser.add_argument('--save_video', action='store_true')
     parser.add_argument('--sleep', type=float, default=-1)
     parser.add_argument('--eval_episodes', type=float, default=5, help='Unit = Episode')
-    parser.add_argument('--env', default='AntMaze', type=str)
-    # parser.add_argument('--env', default='AntPush', type=str)
+    # parser.add_argument('--env', default='AntMaze', type=str)
+    parser.add_argument('--env', default='AntPush', type=str)
+    # parser.add_argument('--env', default='AntFall', type=str)
     parser.add_argument('--td3', action='store_true', default=False)
 
     # Training
@@ -221,17 +224,18 @@ if __name__ == '__main__':
     # Model
     parser.add_argument('--model_path', default='model', type=str)
     parser.add_argument('--log_path', default='log', type=str)
-    parser.add_argument('--policy_freq_low', default=2, type=int)
-    parser.add_argument('--policy_freq_high', default=2, type=int)
+    parser.add_argument('--policy_freq_low', default=2, type=int)  # 低级策略 target 网络更新频率
+    parser.add_argument('--policy_freq_high', default=2, type=int)  # 高级策略 target 网络更新频率
     # Replay Buffer
     parser.add_argument('--buffer_size', default=200000, type=int)
     parser.add_argument('--batch_size', default=128, type=int)
     parser.add_argument('--buffer_freq', default=10, type=int)
-    parser.add_argument('--train_freq', default=10, type=int)
+    parser.add_argument('--train_freq', default=10, type=int)  # 高级策略更新频率
     parser.add_argument('--reward_scaling', default=0.1, type=float)
+    # parser.add_argument('-d', '--my-dict', type=json.loads)
     args = parser.parse_args()
 
-    # Select or Generate a name for this experiment
+        # Select or Generate a name for this experiment
     if args.exp_name:
         experiment_name = args.exp_name
     else:
@@ -244,6 +248,15 @@ if __name__ == '__main__':
         else:
             experiment_name = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
     print(experiment_name)
+
+    para_dict = {}
+    for k in list(vars(args).keys()):
+        para_dict[str(k)] = str(vars(args)[k])
+
+    if not os.path.exists("model/"+experiment_name):
+        os.makedirs("model/"+experiment_name)
+    with open("model/"+experiment_name+"/para.yml", 'w') as f:
+        yaml.dump(para_dict, f)
 
     # Environment and its attributes
     env = EnvWithGoal(create_maze_env(args.env), args.env)
