@@ -121,6 +121,7 @@ class Trainer():
                 a, r, n_s, done, c = self.agent.step(s, self.env, step, global_step, explore=True)
                 r/=10.
                 # print(c, r)
+                # print(self.env._find_moveable_block())
 
                 # Append
                 '''
@@ -204,8 +205,9 @@ if __name__ == '__main__':
     parser.add_argument('--save_video', action='store_true')
     parser.add_argument('--sleep', type=float, default=-1)
     parser.add_argument('--eval_episodes', type=float, default=5, help='Unit = Episode')
-    parser.add_argument('--env', default='AntMaze', type=str)
-    # parser.add_argument('--env', default='AntPush', type=str)
+    # parser.add_argument('--env', default='AntMaze', type=str)
+    parser.add_argument('--env', default='AntPush', type=str)
+    # parser.add_argument('--env', default='AntFall', type=str)
     parser.add_argument('--td3', action='store_true', default=False)
 
     # Training

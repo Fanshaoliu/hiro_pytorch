@@ -179,7 +179,7 @@ class TD3Controller(object):
                 os.path.join(model_path, self.name+"_critic2.h5"))
             )
             self.ccritic1.load_state_dict(torch.load(
-                os.path.join(model_path, self.name+"_ccritic1.h5"))
+                os.path.join(model_path, self.name+"_ccritic1.h5"), map_location=torch.device('cpu'))
             )
 
     def _train(self, states, goals, actions, rewards, n_states, n_goals, not_done, cost=None):

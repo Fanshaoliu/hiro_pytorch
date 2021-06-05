@@ -26,10 +26,11 @@ def get_cost_fn(env_name):
     if env_name == 'AntMaze':
         # return lambda obs, goal: -np.sum(np.square(obs[:2] - goal)) ** 0.5
         return lambda obs, goal: 0. if (obs[0]-12)**2 + (obs[1]-8)**2 < 16 else -1 + np.random.randn()/5.
-    # elif env_name == 'AntPush':
-    #     return lambda obs, goal: -np.sum(np.square(obs[:2] - goal)) ** 0.5
+    elif env_name == 'AntPush':
+        # return lambda moveable_xy, goal: 0. if moveable_xy[0]>0 else -1
+        return lambda obs, goal: 0. if obs[0]>4 else -1 + np.random.randn()/5.
     # elif env_name == 'AntFall':
-    #     return lambda obs, goal: -np.sum(np.square(obs[:3] - goal)) ** 0.5
+    #     return lambda moveable_yz, goal: -np.sum(np.square(obs[:3] - goal)) ** 0.5
     else:
         assert False, 'Unknown env'
 
@@ -82,7 +83,18 @@ class EnvWithGoal(object):
         obs, _, done, info, sb = self.base_env.step(a)  # 执行的是envs/maze_env.py/step, 用sb return法确定
         # print(obs[:2])
         reward = self.reward_fn(obs, self.goal)
+
         cost = self.cost_fn(obs, self.goal)
+
+        # 这样只能得到物块的初始位置
+        # print(self.base_env._find_moveable_block())
+        # print(self.base_env._find_robot())
+        # print(obs[:2])
+
+        # if self.env_name == "AntMaze":
+        #     cost = self.cost_fn(obs, self.goal)
+        # else:
+        #     cost = self.cost_fn(self.base_env._find_moveable_block(), self.goal)
 
         # print("envs/__init__.py/step reward:, reward: %.2f" % (reward))
         # print(self.goal)

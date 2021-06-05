@@ -1,9 +1,4 @@
-
 /log
 *.pyc
 .vscode
 __pycach__/
-*.pyc
-
-/log
-

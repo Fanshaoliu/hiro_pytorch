@@ -229,6 +229,23 @@ class MazeEnv(gym.Env):
           return j * size_scaling, i * size_scaling
     assert False, 'No robot in maze specification.'
 
+  def _find_moveable_block(self):
+    # print(self._maze_id)
+
+    structure = self.MAZE_STRUCTURE
+    # print(structure)
+
+    size_scaling = self.MAZE_SIZE_SCALING
+    for i in range(len(structure)):
+      for j in range(len(structure[0])):
+        if self._maze_id == 'Push':
+          if structure[i][j] == 14:
+            return j * size_scaling, i * size_scaling
+        if self._maze_id == 'Fall':
+          if structure[i][j] == 16:
+            return j * size_scaling, i * size_scaling
+    assert False, 'Env does not have moveable block.'
+
   def step(self, action):
     self.t += 1
     inner_next_obs, inner_reward, done, info = self.wrapped_env.step(action)  # 此处执行的应该是ant.py，return sb法验证失败，但是打印出了二者的reward，是一致的
