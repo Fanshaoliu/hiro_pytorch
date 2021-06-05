@@ -101,12 +101,12 @@ class TD3Controller(object):
         self.critic2_optimizer = torch.optim.Adam(self.critic2.parameters(), lr=critic_lr)
 
         self.ccritic1 = TD3Critic(state_dim, goal_dim, action_dim).to(device)
-        # self.ccritic2 = TD3Critic(state_dim, goal_dim, action_dim).to(device)
+        self.ccritic2 = TD3Critic(state_dim, goal_dim, action_dim).to(device)
         self.ccritic1_target = TD3Critic(state_dim, goal_dim, action_dim).to(device)
-        # self.ccritic2_target = TD3Critic(state_dim, goal_dim, action_dim).to(device)
+        self.ccritic2_target = TD3Critic(state_dim, goal_dim, action_dim).to(device)
 
         self.ccritic1_optimizer = torch.optim.Adam(self.ccritic1.parameters(), lr=critic_lr)
-        # self.ccritic2_optimizer = torch.optim.Adam(self.ccritic2.parameters(), lr=critic_lr)
+        self.ccritic2_optimizer = torch.optim.Adam(self.ccritic2.parameters(), lr=critic_lr)
         self._initialize_target_networks()
 
         self._initialized = False
@@ -200,9 +200,9 @@ class TD3Controller(object):
 
             # cost function
             if cost!=None:
-                target_C = self.ccritic1_target(n_states, n_goals, n_actions)
-                # target_C2 = self.ccritic2_target(n_states, n_goals, n_actions)
-                # target_C = torch.min(target_C1, target_C2)
+                target_C1 = self.ccritic1_target(n_states, n_goals, n_actions)
+                target_C2 = self.ccritic2_target(n_states, n_goals, n_actions)
+                target_C = torch.min(target_C1, target_C2)
                 target_C_detached = (cost + not_done * self.gamma * target_C).detach()
 
         current_Q1 = self.critic1(states, goals, actions)
@@ -224,20 +224,20 @@ class TD3Controller(object):
         # cost function
         if cost!=None:
             current_C1 = self.ccritic1(states, goals, actions)
-            # current_C2 = self.ccritic2(states, goals, actions)
+            current_C2 = self.ccritic2(states, goals, actions)
 
             ccritic1_loss = F.smooth_l1_loss(current_C1, target_C_detached)
-            # ccritic2_loss = F.smooth_l1_loss(current_C2, target_C_detached)
-            ccritic_loss = ccritic1_loss
-            # ccritic_loss = ccritic1_loss + ccritic2_loss
+            ccritic2_loss = F.smooth_l1_loss(current_C2, target_C_detached)
+            # ccritic_loss = ccritic1_loss
+            ccritic_loss = ccritic1_loss + ccritic2_loss
 
             ctd_error = (target_C_detached - current_C1).mean().cpu().data.numpy()
 
             self.ccritic1_optimizer.zero_grad()
-            # self.ccritic2_optimizer.zero_grad()
+            self.ccritic2_optimizer.zero_grad()
             ccritic_loss.backward()
             self.ccritic1_optimizer.step()
-            # self.ccritic2_optimizer.step()
+            self.ccritic2_optimizer.step()
 
         if self.total_it % self.policy_freq == 0:
             a = self.actor(states, goals)
@@ -260,7 +260,7 @@ class TD3Controller(object):
             # for cost
             if cost!=None:
                 self._update_target_network(self.ccritic1_target, self.ccritic1, self.tau)
-                # self._update_target_network(self.ccritic2_target, self.ccritic2, self.tau)
+                self._update_target_network(self.ccritic2_target, self.ccritic2, self.tau)
 
             self._update_target_network(self.actor_target, self.actor, self.tau)
 
