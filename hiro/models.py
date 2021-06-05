@@ -245,8 +245,8 @@ class TD3Controller(object):
 
             C1 = self.ccritic1(states, goals, a)
 
-            if self.name == "high":
-                print( -Q1.mean().detach().numpy() , C1.mean().detach().numpy())
+            #if self.name == "high":
+            #   print( -Q1.mean().detach().numpy() , C1.mean().detach().numpy())
 
             actor_loss = -Q1.mean() + C1.mean() # multiply by neg becuz gradient ascent
 
