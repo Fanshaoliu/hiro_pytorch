@@ -8,6 +8,8 @@ from envs.create_maze_env import create_maze_env
 from hiro.hiro_utils import Subgoal 
 from hiro.utils import Logger, _is_update, record_experience_to_csv, listdirs
 from hiro.models import HiroAgent, TD3Agent
+import yaml
+from time import time
 
 def run_evaluation(args, env, agent):
     agent.load(args.load_episode)
@@ -33,7 +35,7 @@ class Trainer():
 
     def train(self):
         global_step = 0
-
+        start_time = time()
         for e in np.arange(self.args.num_episode)+1:
             obs = self.env.reset()
             fg = obs['desired_goal']
@@ -42,6 +44,7 @@ class Trainer():
 
             step = 0
             episode_reward = 0
+            # episode_cost
 
             self.agent.set_final_goal(fg)
 
@@ -60,12 +63,20 @@ class Trainer():
                 
                 # Updates
                 s = n_s
+                # episode_cost += c
                 episode_reward += r
                 step += 1
                 global_step += 1
                 self.agent.end_step()
                 
             self.agent.end_episode(e, self.logger)
+
+            if e%10==0:
+                end_time = time()
+                # print("Epoch: ",e , "Reward: ", episode_reward, "Cost: ", episode_cost, "Time consuming: ", int(end_time-start_time))
+                print("Epoch: %d"%(e), "Reward: %.3f"%(episode_reward), "Time consuming: %d"%(int(end_time - start_time)))
+                start_time = time()
+
             self.logger.write('reward/Reward', episode_reward, e)
             self.evaluate(e)
 
@@ -185,6 +196,16 @@ if __name__ == '__main__':
 
     # Run training or evaluation
     if args.train:
+        # save para
+        para_dict = {}
+        for k in list(vars(args).keys()):
+            para_dict[str(k)] = str(vars(args)[k])
+
+        if not os.path.exists("model/" + experiment_name):
+            os.makedirs("model/" + experiment_name)
+        with open("model/" + experiment_name + "/para.yml", 'w') as f:
+            yaml.dump(para_dict, f)
+
         # Record this experiment with arguments to a CSV file
         record_experience_to_csv(args, experiment_name)
         # Start training

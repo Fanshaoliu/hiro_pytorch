@@ -107,3 +107,19 @@ True,False,True,False,-1,5,AntPush,False,25000,2500,25,15,-1,2000,250,,model,log
 True,False,True,False,-1,5,AntPush,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,128,10,10,0.1,20210605_162902
 True,False,True,False,-1,5,AntPush,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,128,10,10,0.1,20210605_163612
 True,False,True,False,-1,5,AntPush,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,128,10,10,0.1,20210605_164227
+True,False,True,False,-1,5,12000,AntMaze,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,128,10,10,0.1,Is config save correct?,20210606_143354
+True,False,True,False,-1,5,12000,AntPush,False,25000,2500,25,15,-1,2000,250,Origin HIRO AntPush Exp,model,log,2,2,200000,128,10,10,0.1,Is config save correct?,Origin HIRO AntPush Exp
+True,False,True,False,-1,5,12000,AntPush,False,25000,2500,25,15,-1,2000,250,Origin HIRO AntPush Exp,model,log,2,2,200000,128,10,10,0.1,Is config save correct?,Origin HIRO AntPush Exp
+True,False,True,False,-1,5,12000,AntPush,False,25000,2500,25,15,-1,2000,250,Origin HIRO AntPush Exp,model,log,2,2,200000,128,10,10,0.1,Is config save correct?,Origin HIRO AntPush Exp
+True,False,True,False,-1,5,12000,AntPush,False,25000,2500,25,15,-1,2000,250,Origin HIRO AntPush Exp,model,log,2,2,200000,128,10,10,0.1,Is config save correct?,Origin HIRO AntPush Exp
+True,False,True,False,-1,5,12000,AntPush,False,25000,2500,25,15,-1,2000,250,Origin HIRO AntPush Exp,model,log,2,2,200000,128,10,10,0.1,Is config save correct?,Origin HIRO AntPush Exp
+True,False,True,False,-1,5,12000,AntPush,False,25000,2500,25,15,-1,2000,250,Origin HIRO AntPush Exp,model,log,2,2,200000,128,10,10,0.1,Is config save correct?,Origin HIRO AntPush Exp
+True,False,True,False,-1,5,12000,AntPush,False,25000,2500,25,15,-1,2000,250,Origin HIRO AntPush Exp,model,log,2,2,200000,128,10,10,0.1,Is config save correct?,Origin HIRO AntPush Exp
+True,False,False,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,Origin HIRO AntMaze Exp,model,log,2,2,200000,100,10,10,0.1,Origin HIRO AntMaze Exp
+True,False,False,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,Origin HIRO AntMaze Exp,model,log,2,2,200000,100,10,10,0.1,Origin HIRO AntMaze Exp
+True,False,False,False,-1,5,AntPush,False,25000,2500,25,15,-1,2000,250,Origin HIRO AntPush Exp,model,log,2,2,200000,100,10,10,0.1,Origin HIRO AntPush Exp
+True,False,False,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,Origin HIRO AntMaze Exp,model,log,2,2,200000,100,10,10,0.1,Origin HIRO AntMaze Exp
+True,False,False,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,Origin HIRO AntMaze Exp,model,log,2,2,200000,100,10,10,0.1,Origin HIRO AntMaze Exp
+True,False,False,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,Origin HIRO AntMaze Exp,model,log,2,2,200000,100,10,10,0.1,Origin HIRO AntMaze Exp
+True,False,False,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,Origin HIRO AntMaze Exp,model,log,2,2,200000,100,10,10,0.1,Origin HIRO AntMaze Exp
+True,False,False,False,-1,5,AntPush,False,25000,2500,25,15,-1,2000,250,Origin HIRO AntPush Exp,model,log,2,2,200000,100,10,10,0.1,Origin HIRO AntPush Exp

@@ -201,7 +201,7 @@ if __name__ == '__main__':
 
     # Across All
     parser.add_argument('--train', action='store_true')
-    parser.add_argument('--eval', action='store_true', default=True)
+    parser.add_argument('--eval', action='store_true')
     parser.add_argument('--render', action='store_true', default=True)
     parser.add_argument('--save_video', action='store_true')
     parser.add_argument('--sleep', type=float, default=-1)
@@ -233,7 +233,7 @@ if __name__ == '__main__':
     parser.add_argument('--buffer_freq', default=10, type=int)
     parser.add_argument('--train_freq', default=10, type=int)  # 高级策略更新频率
     parser.add_argument('--reward_scaling', default=0.1, type=float)
-    parser.add_argument('--remark', default="no remarks", type=str)
+    parser.add_argument('--remarks', default="no remarks", type=str)
     # parser.add_argument('-d', '--my-dict', type=json.loads)
     args = parser.parse_args()
 

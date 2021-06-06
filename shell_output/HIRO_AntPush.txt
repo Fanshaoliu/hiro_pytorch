@@ -1,0 +1,10 @@
+20210606 15:35:19
+objc[64756]: Class GLFWApplicationDelegate is implemented in both /Users/liushaofan/.mujoco/mujoco200/bin/libglfw.3.dylib (0x11982f778) and /Users/liushaofan/opt/anaconda3/envs/hrl/lib/python3.7/site-packages/glfw/libglfw.3.dylib (0x1198e8740). One of the two will be used. Which one is undefined.
+objc[64756]: Class GLFWWindowDelegate is implemented in both /Users/liushaofan/.mujoco/mujoco200/bin/libglfw.3.dylib (0x11982f700) and /Users/liushaofan/opt/anaconda3/envs/hrl/lib/python3.7/site-packages/glfw/libglfw.3.dylib (0x1198e8768). One of the two will be used. Which one is undefined.
+objc[64756]: Class GLFWContentView is implemented in both /Users/liushaofan/.mujoco/mujoco200/bin/libglfw.3.dylib (0x11982f7a0) and /Users/liushaofan/opt/anaconda3/envs/hrl/lib/python3.7/site-packages/glfw/libglfw.3.dylib (0x1198e87b8). One of the two will be used. Which one is undefined.
+objc[64756]: Class GLFWWindow is implemented in both /Users/liushaofan/.mujoco/mujoco200/bin/libglfw.3.dylib (0x11982f818) and /Users/liushaofan/opt/anaconda3/envs/hrl/lib/python3.7/site-packages/glfw/libglfw.3.dylib (0x1198e8830). One of the two will be used. Which one is undefined.
+Origin HIRO AntPush Exp
+/Users/liushaofan/opt/anaconda3/envs/hrl/lib/python3.7/site-packages/gym/logger.py:30: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+  warnings.warn(colorize('%s: %s'%('WARN', msg % args), 'yellow'))
+Epoch: 10 Reward: -9477.774 Time consuming: 49
+run_shell/HIRO_AntPush.sh: line 2: 64756 Killed: 9               python -u clean_hiro/hiro_pytorch/main.py --train --env AntPush --exp_name "Origin HIRO AntPush Exp"
