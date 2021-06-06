@@ -1,7 +1,7 @@
 batch_size: '128'
 buffer_freq: '10'
 buffer_size: '200000'
-env: AntPush
+env: AntMaze
 eval: 'True'
 eval_episodes: '5'
 exp_name: None

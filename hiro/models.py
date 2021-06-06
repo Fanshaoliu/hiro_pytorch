@@ -145,11 +145,18 @@ class TD3Controller(object):
             self.ccritic1.state_dict(),
             os.path.join(model_path, self.name+"_ccritic1.h5")
         )
+        torch.save(
+            self.ccritic2.state_dict(),
+            os.path.join(model_path, self.name+"_ccritic2.h5")
+        )
 
     def load(self, episode):
         # episode is -1, then read most updated
         if episode<0:
-            episode_list = map(int, os.listdir(self.model_path))
+            episode_list = list(map(str, os.listdir(self.model_path)))
+            episode_list.remove("para.yml")
+            episode_list = map(int, episode_list)
+            # print("episode_list", )
             episode = max(episode_list)
 
         model_path = os.path.join(self.model_path, str(episode))
@@ -168,6 +175,9 @@ class TD3Controller(object):
             self.ccritic1.load_state_dict(torch.load(
                 os.path.join(model_path, self.name+"_ccritic1.h5"), map_location=torch.device('cpu'))
             )
+            self.ccritic2.load_state_dict(torch.load(
+                os.path.join(model_path, self.name+"_ccritic2.h5"), map_location=torch.device('cpu'))
+            )
         else:
             self.actor.load_state_dict(torch.load(
                 os.path.join(model_path, self.name+"_actor.h5"))
@@ -180,6 +190,9 @@ class TD3Controller(object):
             )
             self.ccritic1.load_state_dict(torch.load(
                 os.path.join(model_path, self.name+"_ccritic1.h5"))
+            )
+            self.ccritic2.load_state_dict(torch.load(
+                os.path.join(model_path, self.name+"_ccritic2.h5"))
             )
 
     def _train(self, states, goals, actions, rewards, n_states, n_goals, not_done, cost=None):

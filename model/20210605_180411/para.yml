@@ -1,8 +1,8 @@
 batch_size: '128'
 buffer_freq: '10'
 buffer_size: '200000'
-env: AntMaze
-eval: 'False'
+env: AntPush
+eval: 'True'
 eval_episodes: '5'
 exp_name: None
 load_episode: '-1'
@@ -20,6 +20,6 @@ sleep: '-1'
 start_training_steps: '2500'
 subgoal_dim: '15'
 td3: 'False'
-train: 'True'
+train: 'False'
 train_freq: '10'
 writer_freq: '25'

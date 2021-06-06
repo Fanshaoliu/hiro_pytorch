@@ -200,14 +200,15 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     # Across All
-    parser.add_argument('--train', action='store_true', default=True)
-    parser.add_argument('--eval', action='store_true')
+    parser.add_argument('--train', action='store_true')
+    parser.add_argument('--eval', action='store_true', default=True)
     parser.add_argument('--render', action='store_true', default=True)
     parser.add_argument('--save_video', action='store_true')
     parser.add_argument('--sleep', type=float, default=-1)
     parser.add_argument('--eval_episodes', type=float, default=5, help='Unit = Episode')
-    # parser.add_argument('--env', default='AntMaze', type=str)
-    parser.add_argument('--env', default='AntPush', type=str)
+    parser.add_argument('--load_episodes', type=int, default=12000, help='saved para')
+    parser.add_argument('--env', default='AntMaze', type=str)
+    # parser.add_argument('--env', default='AntPush', type=str)
     # parser.add_argument('--env', default='AntFall', type=str)
     parser.add_argument('--td3', action='store_true', default=False)
 
@@ -232,6 +233,7 @@ if __name__ == '__main__':
     parser.add_argument('--buffer_freq', default=10, type=int)
     parser.add_argument('--train_freq', default=10, type=int)  # 高级策略更新频率
     parser.add_argument('--reward_scaling', default=0.1, type=float)
+    parser.add_argument('--remark', default="no remarks", type=str)
     # parser.add_argument('-d', '--my-dict', type=json.loads)
     args = parser.parse_args()
 
@@ -244,19 +246,13 @@ if __name__ == '__main__':
             # dirs_str = listdirs(args.model_path)
             # dirs = np.array(list(map(int, dirs_str)))
             # experiment_name = dirs_str[np.argmax(dirs)]
-            experiment_name = "antmaze_256"
+            # experiment_name = "20210605_175654"
+            experiment_name = "20210604_204052"
+            # experiment_name = "20210604_204535"
+            # experiment_name = "20210605_180411"
         else:
             experiment_name = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
     print(experiment_name)
-
-    para_dict = {}
-    for k in list(vars(args).keys()):
-        para_dict[str(k)] = str(vars(args)[k])
-
-    if not os.path.exists("model/"+experiment_name):
-        os.makedirs("model/"+experiment_name)
-    with open("model/"+experiment_name+"/para.yml", 'w') as f:
-        yaml.dump(para_dict, f)
 
     # Environment and its attributes
     env = EnvWithGoal(create_maze_env(args.env), args.env)
@@ -299,12 +295,22 @@ if __name__ == '__main__':
             )
 
     # Run training or evaluation
-    if args.train:
+    if args.train and not args.eval:
+        # save para
+        para_dict = {}
+        for k in list(vars(args).keys()):
+            para_dict[str(k)] = str(vars(args)[k])
+
+        if not os.path.exists("model/" + experiment_name):
+            os.makedirs("model/" + experiment_name)
+        with open("model/" + experiment_name + "/para.yml", 'w') as f:
+            yaml.dump(para_dict, f)
+
         # Record this experiment with arguments to a CSV file
         record_experience_to_csv(args, experiment_name)
         # Start training
         trainer = Trainer(args, env, agent, experiment_name)
         trainer.train()
     if args.eval:
-        agent.load(24000)
+        agent.load(args.load_episodes)
         run_evaluation(args, env, agent)
