@@ -1,0 +1,25 @@
+batch_size: '100'
+buffer_freq: '10'
+buffer_size: '200000'
+env: Safexp-PointGoal0-v0
+eval: 'False'
+eval_episodes: '5'
+exp_name: Safexp-PointGoal0-v0 with origin HIRO
+load_episode: '-1'
+log_path: log
+model_path: model
+model_save_freq: '2000'
+num_episode: '25000'
+policy_freq_high: '2'
+policy_freq_low: '2'
+print_freq: '250'
+render: 'False'
+reward_scaling: '0.1'
+save_video: 'False'
+sleep: '-1'
+start_training_steps: '2500'
+subgoal_dim: '15'
+td3: 'False'
+train: 'True'
+train_freq: '10'
+writer_freq: '25'
