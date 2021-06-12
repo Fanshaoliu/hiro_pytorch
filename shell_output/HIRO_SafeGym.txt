@@ -1,9 +1,6 @@
-20210612 14:49:51
-objc[41337]: Class GLFWApplicationDelegate is implemented in both /Users/liushaofan/.mujoco/mujoco200/bin/libglfw.3.dylib (0x11e94f778) and /Users/liushaofan/opt/anaconda3/envs/safegym/lib/python3.6/site-packages/glfw/libglfw.3.dylib (0x11e9ef740). One of the two will be used. Which one is undefined.
-objc[41337]: Class GLFWWindowDelegate is implemented in both /Users/liushaofan/.mujoco/mujoco200/bin/libglfw.3.dylib (0x11e94f700) and /Users/liushaofan/opt/anaconda3/envs/safegym/lib/python3.6/site-packages/glfw/libglfw.3.dylib (0x11e9ef768). One of the two will be used. Which one is undefined.
-objc[41337]: Class GLFWContentView is implemented in both /Users/liushaofan/.mujoco/mujoco200/bin/libglfw.3.dylib (0x11e94f7a0) and /Users/liushaofan/opt/anaconda3/envs/safegym/lib/python3.6/site-packages/glfw/libglfw.3.dylib (0x11e9ef7b8). One of the two will be used. Which one is undefined.
-objc[41337]: Class GLFWWindow is implemented in both /Users/liushaofan/.mujoco/mujoco200/bin/libglfw.3.dylib (0x11e94f818) and /Users/liushaofan/opt/anaconda3/envs/safegym/lib/python3.6/site-packages/glfw/libglfw.3.dylib (0x11e9ef830). One of the two will be used. Which one is undefined.
-Safexp-PointGoal0-v0 with origin HIRO
+20210612 16:18:18
+device of clean hiro:  cuda
+Safexp-PointGoal0-v0-para0
 config:
 
 num_steps 1000
@@ -142,16 +139,54 @@ frameskip_binom_p 1.0
 _seed None
 env observation_space 28
 env action_space 2
-/Users/liushaofan/opt/anaconda3/envs/safegym/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:526: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
-/Users/liushaofan/opt/anaconda3/envs/safegym/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:527: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
-/Users/liushaofan/opt/anaconda3/envs/safegym/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:528: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
-/Users/liushaofan/opt/anaconda3/envs/safegym/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:529: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
-/Users/liushaofan/opt/anaconda3/envs/safegym/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:530: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
-/Users/liushaofan/opt/anaconda3/envs/safegym/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:535: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-  np_resource = np.dtype([("resource", np.ubyte, 1)])
-Epoch: 10 Reward: -1.854 Time consuming: 112
+max_episode_steps:  30000
+Epoch: 10 Reward: -1.614 Time consuming: 55
+Epoch: 20 Reward: -1.417 Time consuming: 69
+Epoch: 30 Reward: 0.836 Time consuming: 67
+Epoch: 40 Reward: -2.959 Time consuming: 64
+Epoch: 50 Reward: -1.859 Time consuming: 64
+Epoch: 60 Reward: -2.207 Time consuming: 65
+Epoch: 70 Reward: -0.891 Time consuming: 64
+Epoch: 80 Reward: -1.716 Time consuming: 64
+Epoch: 90 Reward: -1.440 Time consuming: 64
+Epoch: 100 Reward: -0.944 Time consuming: 68
+Epoch: 110 Reward: 1.540 Time consuming: 69
+Epoch: 120 Reward: 8.935 Time consuming: 69
+Epoch: 130 Reward: 13.318 Time consuming: 70
+Epoch: 140 Reward: 6.754 Time consuming: 69
+Epoch: 150 Reward: 5.730 Time consuming: 70
+Epoch: 160 Reward: 11.089 Time consuming: 69
+Epoch: 170 Reward: 10.933 Time consuming: 69
+Epoch: 180 Reward: 6.854 Time consuming: 69
+Epoch: 190 Reward: 5.141 Time consuming: 74
+Epoch: 200 Reward: 6.677 Time consuming: 72
+Epoch: 210 Reward: 6.086 Time consuming: 72
+Epoch: 220 Reward: 10.513 Time consuming: 72
+Epoch: 230 Reward: 13.462 Time consuming: 69
+Epoch: 240 Reward: 13.007 Time consuming: 69
+Epoch: 250 Reward: 16.895 Time consuming: 70
+Epoch: 260 Reward: 14.075 Time consuming: 69
+Epoch: 270 Reward: 10.034 Time consuming: 69
+Epoch: 280 Reward: 13.743 Time consuming: 69
+Epoch: 290 Reward: 10.819 Time consuming: 70
+Epoch: 300 Reward: 10.503 Time consuming: 71
+Epoch: 310 Reward: 12.155 Time consuming: 74
+Epoch: 320 Reward: 14.458 Time consuming: 68
+Epoch: 330 Reward: -0.045 Time consuming: 65
+Epoch: 340 Reward: 6.506 Time consuming: 65
+Epoch: 350 Reward: 0.316 Time consuming: 65
+Epoch: 360 Reward: 8.194 Time consuming: 65
+Epoch: 370 Reward: -0.146 Time consuming: 65
+Epoch: 380 Reward: 8.111 Time consuming: 65
+Epoch: 390 Reward: 11.737 Time consuming: 65
+Epoch: 400 Reward: 9.255 Time consuming: 65
+Epoch: 410 Reward: 8.240 Time consuming: 65
+Epoch: 420 Reward: 14.649 Time consuming: 65
+Epoch: 430 Reward: 9.449 Time consuming: 64
+Epoch: 440 Reward: 11.037 Time consuming: 64
+Epoch: 450 Reward: -1.127 Time consuming: 65
+Epoch: 460 Reward: 18.143 Time consuming: 69
+Epoch: 470 Reward: 9.287 Time consuming: 70
+Epoch: 480 Reward: 4.983 Time consuming: 70
+Epoch: 490 Reward: 9.153 Time consuming: 65
+Epoch: 500 Reward: 3.845 Time consuming: 65
