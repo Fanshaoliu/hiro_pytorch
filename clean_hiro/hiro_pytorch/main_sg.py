@@ -44,10 +44,11 @@ def run_evaluation_sg(args, env, agent, eval_epochs=10):
 
     results = []
 
-    for i in range(eval_epochs):
+    while True:
         if done:
             print('Episode Return: %.3f \t Episode Cost: %.3f \t Episode num_step: %.3f'%(ep_ret, ep_cost, num_step))
-            results.append([i, ep_ret, ep_cost, num_step])
+            # results.append([i, ep_ret, ep_cost, num_step])
+            results.append([ep_ret, ep_cost, num_step])
             ep_ret, ep_cost = 0, 0
             obs = env.reset()
             num_step = 0
@@ -59,7 +60,7 @@ def run_evaluation_sg(args, env, agent, eval_epochs=10):
 
         assert env.action_space.contains(act)
         obs, reward, done, info = env.step(act)
-        print("info: \n", info)
+        # print("info: \n", info)
 
         num_step += 1
         # print('reward', reward)
@@ -207,6 +208,8 @@ if __name__ == '__main__':
             dirs_str = listdirs(args.model_path)
             dirs = np.array(list(map(int, dirs_str)))
             experiment_name = dirs_str[np.argmax(dirs)]
+
+            experiment_name = "Safexp-PointGoal0-v0-para0"
         else:
             experiment_name = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
     print(experiment_name)
@@ -283,4 +286,5 @@ if __name__ == '__main__':
         trainer.train()
     if args.eval:
         # run_evaluation(args, env, agent)
+        args.load_episode = 100
         results = run_evaluation_sg(args, env, agent, 5)

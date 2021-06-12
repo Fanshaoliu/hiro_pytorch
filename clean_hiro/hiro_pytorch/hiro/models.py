@@ -141,17 +141,31 @@ class TD3Controller(object):
             episode_list = map(int, os.listdir(self.model_path))
             episode = max(episode_list)
 
-        model_path = os.path.join(self.model_path, str(episode)) 
+        model_path = os.path.join(self.model_path, str(episode))
 
-        self.actor.load_state_dict(torch.load(
-            os.path.join(model_path, self.name+"_actor.h5"))
-        )
-        self.critic1.load_state_dict(torch.load(
-            os.path.join(model_path, self.name+"_critic1.h5"))
-        )
-        self.critic2.load_state_dict(torch.load(
-            os.path.join(model_path, self.name+"_critic2.h5"))
-        )
+        model_path = os.path.join("/Users/liushaofan/PycharmProjects/safe-rl/hiro_pytorch", model_path)
+
+
+        if not torch.cuda.is_available():
+            self.actor.load_state_dict(torch.load(
+                os.path.join(model_path, self.name+"_actor.h5"), map_location=torch.device('cpu'))
+            )
+            self.critic1.load_state_dict(torch.load(
+                os.path.join(model_path, self.name+"_critic1.h5"), map_location=torch.device('cpu'))
+            )
+            self.critic2.load_state_dict(torch.load(
+                os.path.join(model_path, self.name+"_critic2.h5"), map_location=torch.device('cpu'))
+            )
+        else:
+            self.actor.load_state_dict(torch.load(
+                os.path.join(model_path, self.name+"_actor.h5"))
+            )
+            self.critic1.load_state_dict(torch.load(
+                os.path.join(model_path, self.name+"_critic1.h5"))
+            )
+            self.critic2.load_state_dict(torch.load(
+                os.path.join(model_path, self.name+"_critic2.h5"))
+            )
 
     def _train(self, states, goals, actions, rewards, n_states, n_goals, not_done):
         self.total_it += 1
