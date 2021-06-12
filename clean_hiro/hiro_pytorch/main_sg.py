@@ -1,4 +1,6 @@
 import os, sys
+os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+
 import argparse
 import numpy as np
 import datetime
@@ -42,8 +44,13 @@ class Trainer():
         start_time = time()
         for e in np.arange(self.args.num_episode) + 1:
             obs = self.env.reset()
-            fg = obs['desired_goal']
-            s = obs['observation']
+            # fg = obs['desired_goal']
+            # print("self.env.goal_pos: \n", self.env.goal_pos)
+            fg = self.env.goal_pos[:2]
+
+            # s = obs['observation']
+            s = obs
+
             done = False
 
             step = 0
@@ -83,7 +90,9 @@ class Trainer():
                 start_time = time()
 
             self.logger.write('reward/Reward', episode_reward, e)
-            self.evaluate(e)
+
+            # Safe-gym donot have evaluate dring training
+            # self.evaluate(e)
 
     def log(self, global_step, data):
         losses, td_errors = data[0], data[1]
@@ -169,8 +178,15 @@ if __name__ == '__main__':
     env = gym.make(args.env)
 
     goal_dim = 2
-    state_dim = env.state_dim
-    action_dim = env.action_dim
+    # state_dim = env.state_dim
+    # action_dim = env.action_dim
+
+    print("env observation_space", env.observation_space.shape[0])  # 28
+    print("env action_space", env.action_space.shape[0])  # 2
+
+    state_dim = env.observation_space.shape[0]
+    action_dim = env.action_space.shape[0]
+
     scale = env.action_space.high * np.ones(action_dim)
 
     # Spawn an agent

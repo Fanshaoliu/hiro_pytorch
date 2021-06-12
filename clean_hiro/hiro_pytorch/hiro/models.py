@@ -579,8 +579,11 @@ class HiroAgent(Agent):
             a = self._choose_action(s, self.sg)
 
         # Take action
-        obs, r, done, _ = env.step(a)
-        n_s = obs['observation']
+        # info is a dict of all kinds of cost
+        obs, r, done, info = env.step(a)
+
+        # n_s = obs['observation']
+        n_s = obs
 
         ## Higher Level Controller
         # Take random action for start_training steps
