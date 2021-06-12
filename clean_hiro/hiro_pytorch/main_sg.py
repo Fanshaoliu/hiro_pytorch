@@ -30,6 +30,44 @@ def run_evaluation(args, env, agent):
         median=np.median(rewards),
         success=success_rate))
 
+def run_evaluation_sg(args, env, agent, eval_epochs=10):
+    agent.load(args.load_episode)
+
+    obs = env.reset()
+    # print("obs: \n", obs)
+    done = False
+    ep_ret = 0
+    ep_cost = 0
+
+    num_step = 0
+    last_action = env.action_space.sample()
+
+    results = []
+
+    for i in range(eval_epochs):
+        if done:
+            print('Episode Return: %.3f \t Episode Cost: %.3f \t Episode num_step: %.3f'%(ep_ret, ep_cost, num_step))
+            results.append([i, ep_ret, ep_cost, num_step])
+            ep_ret, ep_cost = 0, 0
+            obs = env.reset()
+            num_step = 0
+        assert env.observation_space.contains(obs)
+        act = env.action_space.sample()
+
+        act = 0.5 * act + 0.5 * last_action
+        last_action = act
+
+        assert env.action_space.contains(act)
+        obs, reward, done, info = env.step(act)
+        print("info: \n", info)
+
+        num_step += 1
+        # print('reward', reward)
+        ep_ret += reward
+        ep_cost += info.get('cost', 0)
+        env.render()
+
+    return results
 
 class Trainer():
     def __init__(self, args, env, agent, experiment_name):
@@ -244,4 +282,5 @@ if __name__ == '__main__':
         trainer = Trainer(args, env, agent, experiment_name)
         trainer.train()
     if args.eval:
-        run_evaluation(args, env, agent)
+        # run_evaluation(args, env, agent)
+        results = run_evaluation_sg(args, env, agent, 5)
