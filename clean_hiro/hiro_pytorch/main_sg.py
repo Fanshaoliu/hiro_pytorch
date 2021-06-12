@@ -40,6 +40,7 @@ def run_evaluation_sg(args, env, agent, eval_epochs=10):
     ep_cost = 0
 
     num_step = 0
+    global_step = 0
     last_action = env.action_space.sample()
 
     results = []
@@ -53,19 +54,24 @@ def run_evaluation_sg(args, env, agent, eval_epochs=10):
             obs = env.reset()
             num_step = 0
         assert env.observation_space.contains(obs)
-        act = env.action_space.sample()
+        # act = env.action_space.sample()
 
-        act = 0.5 * act + 0.5 * last_action
-        last_action = act
+        a, r, n_s, done = agent.step(obs, env, num_step, global_step, explore=True)
 
-        assert env.action_space.contains(act)
-        obs, reward, done, info = env.step(act)
+        obs = n_s
+
+        # act = 0.5 * act + 0.5 * last_action
+        # last_action = a
+
+        assert env.action_space.contains(a)
+        # obs, reward, done, info = env.step(a)
         # print("info: \n", info)
 
         num_step += 1
+        global_step += 1
         # print('reward', reward)
-        ep_ret += reward
-        ep_cost += info.get('cost', 0)
+        ep_ret += r
+        # ep_cost += info.get('cost', 0)
         env.render()
 
     return results
@@ -286,5 +292,5 @@ if __name__ == '__main__':
         trainer.train()
     if args.eval:
         # run_evaluation(args, env, agent)
-        args.load_episode = 100
+        args.load_episode = 500
         results = run_evaluation_sg(args, env, agent, 5)

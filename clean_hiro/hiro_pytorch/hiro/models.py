@@ -596,6 +596,7 @@ class HiroAgent(Agent):
 
         # Take action
         # info is a dict of all kinds of cost
+
         obs, r, done, info = env.step(a)
 
         # n_s = obs['observation']
