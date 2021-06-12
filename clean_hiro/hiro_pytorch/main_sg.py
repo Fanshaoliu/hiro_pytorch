@@ -137,6 +137,8 @@ if __name__ == '__main__':
 
     # Training
     parser.add_argument('--num_episode', default=25000, type=int)
+    parser.add_argument('--steps_per_epoch', default=30000, type=int)
+
     parser.add_argument('--start_training_steps', default=2500, type=int, help='Unit = Global Step')
     parser.add_argument('--writer_freq', default=25, type=int, help='Unit = Global Step')
     # Training (Model Saving)
@@ -186,6 +188,9 @@ if __name__ == '__main__':
 
     state_dim = env.observation_space.shape[0]
     action_dim = env.action_space.shape[0]
+
+    env._max_episode_steps = args.steps_per_epoch
+    print("max_episode_steps: ", env._max_episode_steps)
 
     scale = env.action_space.high * np.ones(action_dim)
 
