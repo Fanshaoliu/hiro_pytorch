@@ -128,3 +128,4 @@ True,False,False,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,Origin HI
 True,False,True,False,-1,5,12000,AntMaze,False,25000,2500,25,15,-1,2000,250,,model,log,2,2,200000,128,10,10,0.1,no remarks,20210606_180338
 True,False,False,False,-1,5,AntPush,False,25000,2500,25,15,-1,2000,250,Origin HIRO AntPush Exp,model,log,2,2,200000,100,10,10,0.1,Origin HIRO AntPush Exp
 True,False,False,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,Origin HIRO AntMaze Exp,model,log,2,2,200000,100,10,10,0.1,Origin HIRO AntMaze Exp
+True,False,False,False,-1,5,Safexp-PointGoal0-v0,False,25000,2500,25,15,-1,2000,250,Safexp-PointGoal0-v0 with origin HIRO,model,log,2,2,200000,100,10,10,0.1,Safexp-PointGoal0-v0 with origin HIRO
