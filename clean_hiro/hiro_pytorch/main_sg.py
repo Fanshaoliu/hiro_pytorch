@@ -56,7 +56,7 @@ def run_evaluation_sg(args, env, agent, eval_epochs=10):
         assert env.observation_space.contains(obs)
         # act = env.action_space.sample()
 
-        a, r, n_s, done = agent.step(obs, env, num_step, global_step, explore=True)
+        a, r, n_s, done = agent.step(obs, env, num_step, global_step, explore=False)
 
         obs = n_s
 
@@ -72,6 +72,9 @@ def run_evaluation_sg(args, env, agent, eval_epochs=10):
         # print('reward', reward)
         ep_ret += r
         # ep_cost += info.get('cost', 0)
+
+        agent.end_step()
+
         env.render()
 
     return results
@@ -188,7 +191,7 @@ if __name__ == '__main__':
     parser.add_argument('--writer_freq', default=25, type=int, help='Unit = Global Step')
     # Training (Model Saving)
     parser.add_argument('--subgoal_dim', default=15, type=int)
-    parser.add_argument('--load_episode', default=-1, type=int)
+    parser.add_argument('--load_episode', default=7000, type=int)
     parser.add_argument('--model_save_freq', default=2000, type=int, help='Unit = Episodes')
     parser.add_argument('--print_freq', default=250, type=int, help='Unit = Episode')
     parser.add_argument('--exp_name', default=None, type=str)
@@ -215,7 +218,7 @@ if __name__ == '__main__':
             dirs = np.array(list(map(int, dirs_str)))
             experiment_name = dirs_str[np.argmax(dirs)]
 
-            experiment_name = "Safexp-PointGoal0-v0-para0"
+            experiment_name = "Safexp-PointGoal0-v0-para1"
         else:
             experiment_name = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
     print(experiment_name)
@@ -292,5 +295,5 @@ if __name__ == '__main__':
         trainer.train()
     if args.eval:
         # run_evaluation(args, env, agent)
-        args.load_episode = 500
+        args.load_episode = args.load_episode
         results = run_evaluation_sg(args, env, agent, 5)
