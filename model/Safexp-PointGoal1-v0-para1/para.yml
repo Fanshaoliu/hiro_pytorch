@@ -1,10 +1,10 @@
 batch_size: '64'
 buffer_freq: '20'
 buffer_size: '200000'
-env: Safexp-PointGoal0-v0
+env: Safexp-PointGoal1-v0
 eval: 'False'
 eval_episodes: '5'
-exp_name: Safexp-PointGoal0-v0-para1
+exp_name: Safexp-PointGoal1-v0-para1
 load_episode: '7000'
 log_path: log
 model_path: model

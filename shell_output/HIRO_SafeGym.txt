@@ -832,7 +832,27 @@ Epoch: 6970 Reward: 0.975 Time consuming: 78
 Epoch: 6980 Reward: 4.143 Time consuming: 78
 Epoch: 6990 Reward: 0.452 Time consuming: 80
 Epoch: 7000 Reward: -2.780 Time consuming: 83
-eward: 8.248 Time consuming: 71
-Epoch: 7060 Reward: 10.141 Time consuming: 71
-Epoch: 7070 Reward: 3.366 Time consuming: 76
-Epoch: 7080 Reward: 3.023 Time consuming: 76
+Epoch: 7010 Reward: -5.602 Time consuming: 84
+Epoch: 7020 Reward: -1.854 Time consuming: 82
+Epoch: 7030 Reward: -1.133 Time consuming: 82
+Epoch: 7040 Reward: -4.252 Time consuming: 82
+Epoch: 7050 Reward: -4.659 Time consuming: 83
+Epoch: 7060 Reward: -2.702 Time consuming: 82
+Epoch: 7070 Reward: 2.736 Time consuming: 82
+Epoch: 7080 Reward: 2.762 Time consuming: 82
+Epoch: 7090 Reward: -0.587 Time consuming: 82
+Epoch: 7100 Reward: 2.511 Time consuming: 82
+Epoch: 7110 Reward: -0.233 Time consuming: 82
+Epoch: 7120 Reward: 4.362 Time consuming: 82
+Epoch: 7130 Reward: 0.153 Time consuming: 82
+Epoch: 7140 Reward: -0.963 Time consuming: 82
+Epoch: 7150 Reward: -0.185 Time consuming: 82
+Epoch: 7160 Reward: 2.878 Time consuming: 82
+Epoch: 7170 Reward: -0.836 Time consuming: 82
+Killed
+me consuming: 75
+Epoch: 7230 Reward: -2.032 Time consuming: 75
+Epoch: 7240 Reward: -1.438 Time consuming: 75
+Epoch: 7250 Reward: -7.949 Time consuming: 75
+Epoch: 7260 Reward: -3.826 Time consuming: 75
+Killed

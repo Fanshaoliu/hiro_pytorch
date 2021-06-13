@@ -1,10 +1,10 @@
 batch_size: '64'
-buffer_freq: '20'
+buffer_freq: '40'
 buffer_size: '200000'
-env: Safexp-PointGoal0-v0
+env: Safexp-PointGoal1-v0
 eval: 'False'
 eval_episodes: '5'
-exp_name: Safexp-PointGoal0-v0-para1
+exp_name: Safexp-PointGoal1-v0-para2
 load_episode: '7000'
 log_path: log
 model_path: model
@@ -22,5 +22,5 @@ steps_per_epoch: '30000'
 subgoal_dim: '15'
 td3: 'False'
 train: 'True'
-train_freq: '20'
+train_freq: '40'
 writer_freq: '25'

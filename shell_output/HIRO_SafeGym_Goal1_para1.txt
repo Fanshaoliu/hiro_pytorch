@@ -1,0 +1,328 @@
+20210613 11:45:49
+device of clean hiro:  cuda
+Safexp-PointGoal1-v0-para1
+config:
+
+num_steps 1000
+action_noise 0.0
+placements_extents [-1.5, -1.5, 1.5, 1.5]
+placements_margin 0.0
+floor_display_mode False
+robot_placements None
+robot_locations []
+robot_keepout 0.4
+robot_base xmls/point.xml
+robot_rot None
+randomize_layout True
+build_resample True
+continue_goal True
+terminate_resample_failure True
+observation_flatten True
+observe_sensors True
+observe_goal_dist False
+observe_goal_comp False
+observe_goal_lidar True
+observe_box_comp False
+observe_box_lidar True
+observe_circle False
+observe_remaining False
+observe_walls False
+observe_hazards True
+observe_vases True
+observe_pillars False
+observe_buttons False
+observe_gremlins False
+observe_vision False
+observe_qpos False
+observe_qvel False
+observe_ctrl False
+observe_freejoint False
+observe_com False
+render_labels False
+render_lidar_markers True
+render_lidar_radius 0.15
+render_lidar_size 0.025
+render_lidar_offset_init 0.5
+render_lidar_offset_delta 0.06
+vision_size (60, 40)
+vision_render True
+vision_render_size (300, 200)
+lidar_num_bins 16
+lidar_max_dist 3
+lidar_exp_gain 1.0
+lidar_type pseudo
+lidar_alias True
+compass_shape 2
+task goal
+goal_placements None
+goal_locations []
+goal_keepout 0.305
+goal_size 0.3
+box_placements None
+box_locations []
+box_keepout 0.2
+box_size 0.2
+box_density 0.001
+box_null_dist 2
+reward_distance 1.0
+reward_goal 1.0
+reward_box_dist 1.0
+reward_box_goal 1.0
+reward_orientation False
+reward_orientation_scale 0.002
+reward_orientation_body robot
+reward_exception -10.0
+reward_x 1.0
+reward_z 1.0
+reward_circle 0.1
+reward_clip 10
+buttons_num 0
+buttons_placements None
+buttons_locations []
+buttons_keepout 0.3
+buttons_size 0.1
+buttons_cost 1.0
+buttons_resampling_delay 10
+circle_radius 1.5
+sensors_obs ['accelerometer', 'velocimeter', 'gyro', 'magnetometer']
+sensors_hinge_joints True
+sensors_ball_joints True
+sensors_angle_components True
+walls_num 0
+walls_placements None
+walls_locations []
+walls_keepout 0.0
+walls_size 0.5
+constrain_hazards True
+constrain_vases False
+constrain_pillars False
+constrain_buttons False
+constrain_gremlins False
+constrain_indicator True
+hazards_num 8
+hazards_placements None
+hazards_locations []
+hazards_keepout 0.18
+hazards_size 0.2
+hazards_cost 1.0
+vases_num 1
+vases_placements None
+vases_locations []
+vases_keepout 0.15
+vases_size 0.1
+vases_density 0.001
+vases_sink 4e-05
+vases_contact_cost 1.0
+vases_displace_cost 0.0
+vases_displace_threshold 0.001
+vases_velocity_cost 1.0
+vases_velocity_threshold 0.0001
+pillars_num 0
+pillars_placements None
+pillars_locations []
+pillars_keepout 0.3
+pillars_size 0.2
+pillars_height 0.5
+pillars_cost 1.0
+gremlins_num 0
+gremlins_placements None
+gremlins_locations []
+gremlins_keepout 0.5
+gremlins_travel 0.3
+gremlins_size 0.1
+gremlins_density 0.001
+gremlins_contact_cost 1.0
+gremlins_dist_threshold 0.2
+gremlins_dist_cost 1.0
+frameskip_binom_n 10
+frameskip_binom_p 1.0
+_seed None
+env observation_space 60
+env action_space 2
+max_episode_steps:  30000
+Epoch: 10 Reward: -2.066 Time consuming: 72
+Epoch: 20 Reward: 0.374 Time consuming: 91
+Epoch: 30 Reward: -1.519 Time consuming: 91
+Epoch: 40 Reward: -0.495 Time consuming: 91
+Epoch: 50 Reward: -1.699 Time consuming: 90
+Epoch: 60 Reward: -1.893 Time consuming: 91
+Epoch: 70 Reward: -3.298 Time consuming: 88
+Epoch: 80 Reward: 3.604 Time consuming: 86
+Epoch: 90 Reward: -2.841 Time consuming: 86
+Epoch: 100 Reward: 2.041 Time consuming: 86
+Epoch: 110 Reward: 1.395 Time consuming: 85
+Epoch: 120 Reward: 1.510 Time consuming: 83
+Epoch: 130 Reward: 4.928 Time consuming: 81
+Epoch: 140 Reward: 5.643 Time consuming: 82
+Epoch: 150 Reward: -1.873 Time consuming: 82
+Epoch: 160 Reward: 3.706 Time consuming: 82
+Epoch: 170 Reward: 4.314 Time consuming: 83
+Epoch: 180 Reward: -0.881 Time consuming: 82
+Epoch: 190 Reward: -4.017 Time consuming: 82
+Epoch: 200 Reward: 6.238 Time consuming: 82
+Epoch: 210 Reward: 10.855 Time consuming: 82
+Epoch: 220 Reward: 0.647 Time consuming: 82
+Epoch: 230 Reward: 2.112 Time consuming: 82
+Epoch: 240 Reward: 2.810 Time consuming: 82
+Epoch: 250 Reward: 2.973 Time consuming: 82
+Epoch: 260 Reward: 4.670 Time consuming: 82
+Epoch: 270 Reward: 3.765 Time consuming: 82
+Epoch: 280 Reward: 7.168 Time consuming: 82
+Epoch: 290 Reward: 1.152 Time consuming: 82
+Epoch: 300 Reward: 5.968 Time consuming: 82
+Epoch: 310 Reward: 10.085 Time consuming: 82
+Epoch: 320 Reward: 0.989 Time consuming: 82
+Epoch: 330 Reward: 2.294 Time consuming: 82
+Epoch: 340 Reward: 4.551 Time consuming: 82
+Epoch: 350 Reward: 3.589 Time consuming: 82
+Epoch: 360 Reward: 5.553 Time consuming: 82
+Epoch: 370 Reward: 4.208 Time consuming: 82
+Epoch: 380 Reward: 10.371 Time consuming: 82
+Epoch: 390 Reward: 1.615 Time consuming: 83
+Epoch: 400 Reward: 3.845 Time consuming: 83
+Epoch: 410 Reward: 2.466 Time consuming: 82
+Epoch: 420 Reward: 2.999 Time consuming: 82
+Epoch: 430 Reward: 5.649 Time consuming: 82
+Epoch: 440 Reward: 2.696 Time consuming: 83
+Epoch: 450 Reward: 4.712 Time consuming: 82
+Epoch: 460 Reward: 0.548 Time consuming: 82
+Epoch: 470 Reward: 4.033 Time consuming: 82
+Epoch: 480 Reward: 5.419 Time consuming: 82
+Epoch: 490 Reward: -0.555 Time consuming: 83
+Epoch: 500 Reward: 0.198 Time consuming: 82
+Epoch: 510 Reward: 1.168 Time consuming: 82
+Epoch: 520 Reward: 0.520 Time consuming: 82
+Epoch: 530 Reward: 4.313 Time consuming: 83
+Epoch: 540 Reward: 2.129 Time consuming: 82
+Epoch: 550 Reward: -1.283 Time consuming: 83
+Epoch: 560 Reward: 5.861 Time consuming: 82
+Epoch: 570 Reward: -0.683 Time consuming: 83
+Epoch: 580 Reward: 6.170 Time consuming: 83
+Epoch: 590 Reward: -1.404 Time consuming: 82
+Epoch: 600 Reward: 1.313 Time consuming: 82
+Epoch: 610 Reward: 0.397 Time consuming: 82
+Epoch: 620 Reward: 0.979 Time consuming: 83
+Epoch: 630 Reward: 3.239 Time consuming: 82
+Epoch: 640 Reward: 2.845 Time consuming: 83
+Epoch: 650 Reward: 10.000 Time consuming: 82
+Epoch: 660 Reward: 5.957 Time consuming: 83
+Epoch: 670 Reward: 0.101 Time consuming: 83
+Epoch: 680 Reward: 7.046 Time consuming: 83
+Epoch: 690 Reward: 4.805 Time consuming: 82
+Epoch: 700 Reward: 2.869 Time consuming: 82
+Epoch: 710 Reward: 8.862 Time consuming: 82
+Epoch: 720 Reward: 9.443 Time consuming: 83
+Epoch: 730 Reward: 6.942 Time consuming: 83
+Epoch: 740 Reward: 6.223 Time consuming: 82
+Epoch: 750 Reward: 8.327 Time consuming: 83
+Epoch: 760 Reward: 2.051 Time consuming: 82
+Epoch: 770 Reward: -1.421 Time consuming: 83
+Epoch: 780 Reward: 4.345 Time consuming: 82
+Epoch: 790 Reward: 0.148 Time consuming: 82
+Epoch: 800 Reward: 1.862 Time consuming: 82
+Epoch: 810 Reward: 0.376 Time consuming: 82
+Epoch: 820 Reward: 8.940 Time consuming: 82
+Epoch: 830 Reward: -0.209 Time consuming: 82
+Epoch: 840 Reward: 1.083 Time consuming: 83
+Epoch: 850 Reward: -0.908 Time consuming: 82
+Epoch: 860 Reward: 4.984 Time consuming: 82
+Epoch: 870 Reward: -4.783 Time consuming: 82
+Epoch: 880 Reward: 1.995 Time consuming: 82
+Epoch: 890 Reward: 1.002 Time consuming: 82
+Epoch: 900 Reward: 1.278 Time consuming: 82
+Epoch: 910 Reward: 6.522 Time consuming: 83
+Epoch: 920 Reward: 2.671 Time consuming: 83
+Epoch: 930 Reward: 5.276 Time consuming: 82
+Epoch: 940 Reward: 6.303 Time consuming: 83
+Epoch: 950 Reward: 8.228 Time consuming: 82
+Epoch: 960 Reward: 2.111 Time consuming: 82
+Epoch: 970 Reward: 2.584 Time consuming: 83
+Epoch: 980 Reward: 3.361 Time consuming: 82
+Epoch: 990 Reward: 1.026 Time consuming: 82
+Epoch: 1000 Reward: 7.162 Time consuming: 83
+Epoch: 1010 Reward: 10.092 Time consuming: 82
+Epoch: 1020 Reward: -1.694 Time consuming: 83
+Epoch: 1030 Reward: -0.836 Time consuming: 83
+Epoch: 1040 Reward: 10.379 Time consuming: 83
+Epoch: 1050 Reward: 11.682 Time consuming: 83
+Epoch: 1060 Reward: 11.103 Time consuming: 83
+Epoch: 1070 Reward: 13.363 Time consuming: 83
+Epoch: 1080 Reward: 8.453 Time consuming: 82
+Epoch: 1090 Reward: 9.712 Time consuming: 82
+Epoch: 1100 Reward: 9.840 Time consuming: 83
+Epoch: 1110 Reward: 9.402 Time consuming: 82
+Epoch: 1120 Reward: 6.453 Time consuming: 83
+Epoch: 1130 Reward: 3.336 Time consuming: 82
+Epoch: 1140 Reward: 4.685 Time consuming: 83
+Epoch: 1150 Reward: 1.668 Time consuming: 83
+Epoch: 1160 Reward: 9.000 Time consuming: 82
+Epoch: 1170 Reward: 9.971 Time consuming: 82
+Epoch: 1180 Reward: 13.568 Time consuming: 82
+Epoch: 1190 Reward: 8.736 Time consuming: 82
+Epoch: 1200 Reward: 13.228 Time consuming: 83
+Epoch: 1210 Reward: 3.893 Time consuming: 83
+Epoch: 1220 Reward: 12.197 Time consuming: 82
+Epoch: 1230 Reward: 7.880 Time consuming: 83
+Epoch: 1240 Reward: 11.128 Time consuming: 83
+Epoch: 1250 Reward: 10.400 Time consuming: 83
+Epoch: 1260 Reward: 9.103 Time consuming: 82
+Epoch: 1270 Reward: 12.397 Time consuming: 83
+Epoch: 1280 Reward: 11.417 Time consuming: 82
+Epoch: 1290 Reward: 1.595 Time consuming: 83
+Epoch: 1300 Reward: 8.929 Time consuming: 83
+Epoch: 1310 Reward: 10.326 Time consuming: 83
+Epoch: 1320 Reward: 4.118 Time consuming: 83
+Epoch: 1330 Reward: 8.316 Time consuming: 83
+Epoch: 1340 Reward: 10.911 Time consuming: 82
+Epoch: 1350 Reward: 7.895 Time consuming: 83
+Epoch: 1360 Reward: 8.352 Time consuming: 82
+Epoch: 1370 Reward: 11.588 Time consuming: 83
+Epoch: 1380 Reward: 11.426 Time consuming: 83
+Epoch: 1390 Reward: 13.089 Time consuming: 82
+Epoch: 1400 Reward: 8.586 Time consuming: 83
+Epoch: 1410 Reward: 10.402 Time consuming: 82
+Epoch: 1420 Reward: 10.119 Time consuming: 83
+Epoch: 1430 Reward: 9.105 Time consuming: 83
+Epoch: 1440 Reward: 6.094 Time consuming: 82
+Epoch: 1450 Reward: 10.345 Time consuming: 83
+Epoch: 1460 Reward: 5.966 Time consuming: 83
+Epoch: 1470 Reward: 10.809 Time consuming: 83
+Epoch: 1480 Reward: 10.182 Time consuming: 83
+Epoch: 1490 Reward: 11.096 Time consuming: 83
+Epoch: 1500 Reward: 10.526 Time consuming: 83
+Epoch: 1510 Reward: 10.979 Time consuming: 82
+Epoch: 1520 Reward: 8.439 Time consuming: 83
+Epoch: 1530 Reward: 9.201 Time consuming: 83
+Epoch: 1540 Reward: 7.185 Time consuming: 83
+Epoch: 1550 Reward: 7.854 Time consuming: 82
+Epoch: 1560 Reward: 8.207 Time consuming: 83
+Epoch: 1570 Reward: 11.882 Time consuming: 82
+Epoch: 1580 Reward: 13.651 Time consuming: 82
+Epoch: 1590 Reward: 11.765 Time consuming: 83
+Epoch: 1600 Reward: 11.715 Time consuming: 82
+Epoch: 1610 Reward: 5.140 Time consuming: 83
+Epoch: 1620 Reward: 13.399 Time consuming: 82
+Epoch: 1630 Reward: 10.806 Time consuming: 83
+Epoch: 1640 Reward: 9.496 Time consuming: 83
+Epoch: 1650 Reward: 8.631 Time consuming: 82
+Epoch: 1660 Reward: 9.960 Time consuming: 83
+Epoch: 1670 Reward: 11.153 Time consuming: 83
+Epoch: 1680 Reward: 11.282 Time consuming: 82
+Epoch: 1690 Reward: 7.112 Time consuming: 83
+Epoch: 1700 Reward: 11.083 Time consuming: 83
+Epoch: 1710 Reward: 8.328 Time consuming: 83
+Epoch: 1720 Reward: 8.323 Time consuming: 82
+Epoch: 1730 Reward: 12.744 Time consuming: 83
+Epoch: 1740 Reward: 12.226 Time consuming: 83
+Epoch: 1750 Reward: 7.457 Time consuming: 82
+Epoch: 1760 Reward: 11.889 Time consuming: 83
+Epoch: 1770 Reward: 6.508 Time consuming: 83
+Epoch: 1780 Reward: 11.525 Time consuming: 83
+Epoch: 1790 Reward: 12.983 Time consuming: 83
+Epoch: 1800 Reward: 11.114 Time consuming: 83
+Epoch: 1810 Reward: 11.638 Time consuming: 83
+Epoch: 1820 Reward: 9.659 Time consuming: 83
+Epoch: 1830 Reward: 10.914 Time consuming: 83
+Epoch: 1840 Reward: 10.730 Time consuming: 83
+Epoch: 1850 Reward: 11.122 Time consuming: 83
+Epoch: 1860 Reward: 12.019 Time consuming: 84
