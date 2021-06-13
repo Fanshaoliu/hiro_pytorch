@@ -130,3 +130,12 @@ True,False,False,False,-1,5,AntPush,False,25000,2500,25,15,-1,2000,250,Origin HI
 True,False,False,False,-1,5,AntMaze,False,25000,2500,25,15,-1,2000,250,Origin HIRO AntMaze Exp,model,log,2,2,200000,100,10,10,0.1,Origin HIRO AntMaze Exp
 True,False,False,False,-1,5,Safexp-PointGoal0-v0,False,25000,2500,25,15,-1,2000,250,Safexp-PointGoal0-v0 with origin HIRO,model,log,2,2,200000,100,10,10,0.1,Safexp-PointGoal0-v0 with origin HIRO
 True,False,False,False,-1,5,Safexp-PointGoal0-v0,False,500,30000,2500,25,15,-1,100,250,Safexp-PointGoal0-v0-para0,model,log,2,2,200000,100,10,10,0.1,Safexp-PointGoal0-v0-para0
+True,False,False,False,-1,5,Safexp-PointGoal1-v0,False,10000,30000,2500,25,15,7000,1000,250,Safexp-PointGoal1-v0-para2,model,log,2,2,200000,64,40,40,0.1,Safexp-PointGoal1-v0-para2
+True,False,False,False,-1,5,Safexp-PointGoal1-v0,False,10000,30000,2500,25,15,7000,1000,250,Safexp-PointGoal1-v0-para1,model,log,2,2,200000,64,20,20,0.1,Safexp-PointGoal1-v0-para1
+True,False,False,False,-1,5,Safexp-PointGoal1-v0,False,10000,30000,2500,25,15,7000,1000,250,Safexp-PointGoal1-v0-para1,model,log,2,2,200000,64,20,20,0.1,Safexp-PointGoal1-v0-para1
+True,False,False,False,-1,5,Safexp-PointGoal1-v0,False,10000,30000,2500,25,15,7000,1000,250,Safexp-PointGoal1-v0-para1,model,log,2,2,200000,64,20,20,0.1,Safexp-PointGoal1-v0-para1
+True,False,False,False,-1,5,Safexp-PointGoal1-v0,False,10000,30000,2500,25,15,7000,1000,250,Safexp-PointGoal1-v0-para1,model,log,2,2,200000,64,20,20,0.1,Safexp-PointGoal1-v0-para1
+True,False,False,False,-1,5,Safexp-PointGoal1-v0,False,10000,30000,2500,25,15,7000,1000,250,Safexp-PointGoal1-v0-para2,model,log,2,2,200000,64,40,40,0.1,Safexp-PointGoal1-v0-para2
+True,False,False,False,-1,5,Safexp-PointGoal1-v0,False,10000,30000,2500,25,15,7000,1000,250,Safexp-PointGoal1-v0-para1,model,log,2,2,200000,64,20,20,0.1,Safexp-PointGoal1-v0-para1
+True,False,False,False,-1,5,Safexp-PointGoal1-v0,False,10000,30000,2500,25,15,7000,1000,250,Safexp-PointGoal1-v0-para2,model,log,2,2,200000,64,40,40,0.1,Safexp-PointGoal1-v0-para2
+True,False,False,False,-1,5,Safexp-PointGoal1-v0,False,10000,30000,2500,25,15,7000,1000,250,Safexp-PointGoal1-v0-para1,model,log,2,2,200000,64,20,20,0.1,Safexp-PointGoal1-v0-para1

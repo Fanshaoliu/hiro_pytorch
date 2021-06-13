@@ -7,6 +7,7 @@
 # (Data-Efficient Hierarchical Reinforcement Learning)
 # Parameters can be find in the original paper
 import os
+os.environ['CUDA_VISIBLE_DEVICE'] = "4"
 import copy
 import time
 import glob
@@ -19,6 +20,9 @@ from hiro.hiro_utils import LowReplayBuffer, HighReplayBuffer, ReplayBuffer, Sub
 from hiro.utils import _is_update
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+torch.cuda.set_device(4)
+CUDA_VISIBLE_DEVICES=4
 
 print("device of clean hiro: ", device)
 

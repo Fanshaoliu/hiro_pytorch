@@ -1,7 +1,10 @@
 import os, sys
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
-os.environ['CUDA_VISIBLE_DEVICE'] = 4
+os.environ['CUDA_VISIBLE_DEVICE'] = "4"
+CUDA_VISIBLE_DEVICES=4
+import torch
+torch.cuda.set_device(4)
 
 import argparse
 import numpy as np
@@ -93,6 +96,7 @@ class Trainer():
         global_step = 0
         start_time = time()
         for e in np.arange(self.args.num_episode) + 1:
+            
             obs = self.env.reset()
             # fg = obs['desired_goal']
             # print("self.env.goal_pos: \n", self.env.goal_pos)
