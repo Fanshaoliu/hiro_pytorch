@@ -1,6 +1,8 @@
 import os, sys
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
+os.environ['CUDA_VISIBLE_DEVICE'] = 4
+
 import argparse
 import numpy as np
 import datetime
