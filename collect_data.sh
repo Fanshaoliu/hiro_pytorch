@@ -1,1 +1,2 @@
-python clean_hiro/hiro_pytorch/main_sg.py --collect_data --env Safexp-PointGoal1-v0 --eval_epochs 1000
+echo "`date '+%Y%m%d %H:%M:%S'`"
+nohup sh run_shell/collect_data.sh > shell_output/collect_data.txt 2>&1 &
