@@ -21,7 +21,7 @@ from hiro.utils import _is_update
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# torch.cuda.set_device(4)
+torch.cuda.set_device(4)
 CUDA_VISIBLE_DEVICES=4
 
 print("device of clean hiro: ", device)
