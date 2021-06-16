@@ -3,8 +3,8 @@ os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
 os.environ['CUDA_VISIBLE_DEVICE'] = "4"
 CUDA_VISIBLE_DEVICES=4
-import torch
-torch.cuda.set_device(4)
+# import torch
+# torch.cuda.set_device(4)
 
 import argparse
 import numpy as np
@@ -81,8 +81,8 @@ def run_evaluation_sg(args, env, agent, eval_epochs=10):
         # ep_cost += info.get('cost', 0)
 
         agent.end_step()
-
-        env.render()
+        if args.render:
+            env.render()
 
     return results
 
@@ -115,6 +115,8 @@ def run_data_collect(args, env, agent, eval_epochs=10):
             obs = env.reset()
             num_step = 0
             n += 1
+
+            fts.append(ts)
         assert env.observation_space.contains(obs)
         # act = env.action_space.sample()
 
@@ -135,13 +137,15 @@ def run_data_collect(args, env, agent, eval_epochs=10):
         global_step += 1
         # print('reward', reward)
         ep_ret += r
-        # ep_cost += info.get('cost', 0)
+        # print(info)
+        ep_cost += info.get('cost', 0)
 
         agent.end_step()
 
-        env.render()
+        if args.render:
+            env.render()
 
-    np.save("offline_data/", args.env + "_tragectory.npy", np.array(fts))
+    np.save("offline_data/" + args.env + "_tragectory.npy", np.array(fts))
     print("offline data was saved in " + "offline_data/" + args.env + ", the data was collected by para of ", args.load_episode)
     return results
 
@@ -247,7 +251,7 @@ if __name__ == '__main__':
     parser.add_argument('--save_video', action='store_true')
     parser.add_argument('--sleep', type=float, default=-1)
     parser.add_argument('--eval_episodes', type=float, default=5, help='Unit = Episode')
-    parser.add_argument('--env', default='Safexp-PointGoal0-v0', type=str)
+    parser.add_argument('--env', default='Safexp-PointGoal1-v0', type=str)
     parser.add_argument('--td3', action='store_true')
     parser.add_argument('--collect_data', action='store_true')
 
@@ -274,6 +278,7 @@ if __name__ == '__main__':
     parser.add_argument('--batch_size', default=100, type=int)
     parser.add_argument('--buffer_freq', default=10, type=int)
     parser.add_argument('--train_freq', default=10, type=int)
+    parser.add_argument('--eval_epochs', default=10, type=int)
     parser.add_argument('--reward_scaling', default=0.1, type=float)
     args = parser.parse_args()
 
@@ -288,6 +293,8 @@ if __name__ == '__main__':
             experiment_name = dirs_str[np.argmax(dirs)]
 
             experiment_name = "Safexp-PointGoal0-v0-para1"
+        elif args.collect_data:
+            experiment_name = "Safexp-PointGoal1-v0-para1"
         else:
             experiment_name = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
     print(experiment_name)
@@ -368,5 +375,5 @@ if __name__ == '__main__':
         results = run_evaluation_sg(args, env, agent, 5)
     if args.collect_data:
         args.load_episode = args.load_episode
-        results = run_data_collect(args, env, agent, 10)
+        results = run_data_collect(args, env, agent, args.eval_epochs)
 

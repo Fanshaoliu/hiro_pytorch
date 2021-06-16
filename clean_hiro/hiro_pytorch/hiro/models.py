@@ -21,7 +21,7 @@ from hiro.utils import _is_update
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-torch.cuda.set_device(4)
+# torch.cuda.set_device(4)
 CUDA_VISIBLE_DEVICES=4
 
 print("device of clean hiro: ", device)
@@ -618,7 +618,7 @@ class HiroAgent(Agent):
         
         self.n_sg = n_sg
 
-        return a, r, n_s, done
+        return a, r, n_s, done, info
 
     def append(self, step, s, a, n_s, r, d):
         self.sr = self.low_reward(s, self.sg, n_s)
