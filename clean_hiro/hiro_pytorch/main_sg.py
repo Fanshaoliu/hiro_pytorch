@@ -84,6 +84,65 @@ def run_evaluation_sg(args, env, agent, eval_epochs=10):
 
     return results
 
+def run_tra_collect(args, env, agent, eval_epochs=10):
+    agent.load(args.load_episode)
+
+    ts = []  # tragectory_saver
+    fts = []  # final tragectory_saver
+
+    obs = env.reset()
+    # print("obs: \n", obs)
+    done = False
+    ep_ret = 0
+    ep_cost = 0
+
+    num_step = 0
+    global_step = 0
+    last_action = env.action_space.sample()
+
+    results = []
+
+    n = 0
+
+    while n < eval_epochs:
+        if done:
+            print('Episode Return: %.3f \t Episode Cost: %.3f \t Episode num_step: %.3f'%(ep_ret, ep_cost, num_step))
+            # results.append([i, ep_ret, ep_cost, num_step])
+            n += 1
+            results.append([ep_ret, ep_cost, num_step])
+            ep_ret, ep_cost = 0, 0
+            obs = env.reset()
+            num_step = 0
+        assert env.observation_space.contains(obs)
+        # act = env.action_space.sample()
+
+        a, r, n_s, done, info = agent.step(obs, env, num_step, global_step, explore=False)
+
+        ts.append([obs, a, r, info['cost'], n_s])
+
+        obs = n_s
+
+        # act = 0.5 * act + 0.5 * last_action
+        # last_action = a
+
+        assert env.action_space.contains(a)
+        # obs, reward, done, info = env.step(a)
+        # print("info: \n", info)
+
+        num_step += 1
+        global_step += 1
+        # print('reward', reward)
+        ep_ret += r
+        # ep_cost += info.get('cost', 0)
+
+        agent.end_step()
+
+        env.render()
+
+    np.save("offline_data/", args.env + "_tragectory.npy", np.array(fts))
+
+    return results
+
 class Trainer():
     def __init__(self, args, env, agent, experiment_name):
         self.args = args
@@ -115,7 +174,7 @@ class Trainer():
 
             while not done:
                 # Take action
-                a, r, n_s, done = self.agent.step(s, self.env, step, global_step, explore=True)
+                a, r, n_s, done, info = self.agent.step(s, self.env, step, global_step, explore=True)
 
                 # Append
                 self.agent.append(step, s, a, n_s, r, done)
