@@ -1,1 +1,1 @@
-python main_sg.py --collect_data --env Safexp-PointGoal1-v0 --eval_epochs 1000
+python clean_hiro/hiro_pytorch/main_sg.py --collect_data --env Safexp-PointGoal1-v0 --eval_epochs 1000
