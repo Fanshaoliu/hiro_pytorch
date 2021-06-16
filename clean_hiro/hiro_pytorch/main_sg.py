@@ -2,9 +2,9 @@ import os, sys
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
 os.environ['CUDA_VISIBLE_DEVICE'] = "4"
-CUDA_VISIBLE_DEVICES=4
+CUDA_VISIBLE_DEVICES=3
 import torch
-torch.cuda.set_device(4)
+torch.cuda.set_device(3)
 
 import argparse
 import numpy as np
