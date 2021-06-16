@@ -147,7 +147,7 @@ class TD3Controller(object):
 
         model_path = os.path.join(self.model_path, str(episode))
 
-        model_path = os.path.join("/hiro_pytorch", model_path)
+        model_path = os.path.join("", model_path)
 
 
         if not torch.cuda.is_available():
