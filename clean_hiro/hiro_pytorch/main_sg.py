@@ -43,14 +43,15 @@ def run_evaluation_sg(args, env, agent, eval_epochs=10):
     done = False
     ep_ret = 0
     ep_cost = 0
-
+    
+    n = 0
     num_step = 0
     global_step = 0
     last_action = env.action_space.sample()
 
     results = []
 
-    while True:
+    while n < eval_epochs:
         if done:
             print('Episode Return: %.3f \t Episode Cost: %.3f \t Episode num_step: %.3f'%(ep_ret, ep_cost, num_step))
             # results.append([i, ep_ret, ep_cost, num_step])
@@ -58,6 +59,7 @@ def run_evaluation_sg(args, env, agent, eval_epochs=10):
             ep_ret, ep_cost = 0, 0
             obs = env.reset()
             num_step = 0
+            n += 1
         assert env.observation_space.contains(obs)
         # act = env.action_space.sample()
 
@@ -84,7 +86,7 @@ def run_evaluation_sg(args, env, agent, eval_epochs=10):
 
     return results
 
-def run_tra_collect(args, env, agent, eval_epochs=10):
+def run_data_collect(args, env, agent, eval_epochs=10):
     agent.load(args.load_episode)
 
     ts = []  # tragectory_saver
@@ -108,11 +110,11 @@ def run_tra_collect(args, env, agent, eval_epochs=10):
         if done:
             print('Episode Return: %.3f \t Episode Cost: %.3f \t Episode num_step: %.3f'%(ep_ret, ep_cost, num_step))
             # results.append([i, ep_ret, ep_cost, num_step])
-            n += 1
             results.append([ep_ret, ep_cost, num_step])
             ep_ret, ep_cost = 0, 0
             obs = env.reset()
             num_step = 0
+            n += 1
         assert env.observation_space.contains(obs)
         # act = env.action_space.sample()
 
@@ -140,7 +142,7 @@ def run_tra_collect(args, env, agent, eval_epochs=10):
         env.render()
 
     np.save("offline_data/", args.env + "_tragectory.npy", np.array(fts))
-
+    print("offline data was saved in " + "offline_data/" + args.env + ", the data was collected by para of ", args.load_episode)
     return results
 
 class Trainer():
@@ -247,6 +249,8 @@ if __name__ == '__main__':
     parser.add_argument('--eval_episodes', type=float, default=5, help='Unit = Episode')
     parser.add_argument('--env', default='Safexp-PointGoal0-v0', type=str)
     parser.add_argument('--td3', action='store_true')
+    parser.add_argument('--collect_data', action='store_true')
+
 
     # Training
     parser.add_argument('--num_episode', default=25000, type=int)
@@ -362,3 +366,7 @@ if __name__ == '__main__':
         # run_evaluation(args, env, agent)
         args.load_episode = args.load_episode
         results = run_evaluation_sg(args, env, agent, 5)
+    if args.collect_data:
+        args.load_episode = args.load_episode
+        results = run_data_collect(args, env, agent, 10)
+
